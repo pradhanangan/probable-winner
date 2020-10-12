@@ -1,0 +1,36 @@
+<html>
+<head>
+	<title>Animation 1.01</title>
+</head>
+<body>
+	<h1>Matthew 1.01<h1>
+	<div>
+	<div id="move" style="position: relative; height:100px; width: 100px;">
+	<img src="./images/fluttershy.png" />
+	</div>
+	</div>
+	<br/>
+	<input type="button" id="btnMove" value="Move!!!" onclick="moveDiv()"/>
+	<script>
+		var divOffset = 0;
+		var dir = 0; 
+		console.log(document.body.clientWidth);
+		function moveDiv() {
+			if(dir == 0) 
+				divOffset += 10;
+			else
+				divOffset -= 10;
+			if(divOffset >= 1000)
+				dir = 1
+			if(divOffset <= 0)
+				dir = 0
+				
+			document.getElementById("move").style.left = divOffset;
+			console.log(divOffset + 100);
+		}
+		
+		setInterval(moveDiv, 100);
+	
+	</script>
+</body>
+</html>

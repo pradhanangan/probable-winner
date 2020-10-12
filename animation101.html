@@ -1,0 +1,60 @@
+<html>
+<head>
+	<title>Animation 1.01</title>
+</head>
+<body>
+	<h1>Animation 1.01<h1>
+	<div style="height: 400px; width: 500px; border: 1px solid black;">
+	<div id="move" style="position: relative; height:20px; width: 20px; background: red;">&nbsp;
+	</div>
+	</div>
+	
+	
+	<input type="button" id="btnLeft" value="LEFT" onclick="left()"/>
+	<input type="button" id="btnRight" value="RIGHT" onclick="right()"/>
+	<input type="button" id="btnUp" value="UP" onclick="up()"/>
+	<input type="button" id="btnDown" value="DOWN" onclick="down()"/>
+	
+	<br/>
+	<input type="button" id="btnRed" value="Red" onclick="changeColor('red')"/>
+	<input type="button" id="btnBlack" value="Green" onclick="changeColor('green')"/>
+	<input type="button" id="btnBlack" value="Blue" onclick="changeColor('blue')"/>
+	<input type="button" id="btnBlack" value="Black" onclick="changeColor('black')"/>
+	
+	
+	<script>
+		
+		var leftOffset = 0, topOffset = 0;
+		
+		
+		function left() {
+			if(leftOffset > 0)
+				leftOffset -= 10;
+			document.getElementById("move").style.left = leftOffset;
+		}
+		
+		function right() {
+			if(leftOffset < 480)
+				leftOffset += 10;
+			document.getElementById("move").style.left = leftOffset;
+		}
+		
+		function up() {
+			if(topOffset > 0)
+				topOffset -= 10;
+			document.getElementById("move").style.top = topOffset;
+		}
+		
+		function down() {
+			if(topOffset < 380)
+				topOffset += 10;
+			document.getElementById("move").style.top = topOffset;
+		}
+		
+		function changeColor(color) {
+			document.getElementById("move").style.background = color;
+		}
+			
+	</script>
+</body>
+</html>

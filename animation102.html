@@ -1,0 +1,67 @@
+<html>
+<head>
+	<title>Animation 1.01</title>
+</head>
+<body>
+	<h1>Animation 1.01<h1>
+	<div>
+	<div style="float: left;height: 400px; width: 500px; border: 1px solid black;">
+	<div id="move" style="position: relative; height:20px; width: 20px; background-color: red;">&nbsp;
+	</div>
+	</div>
+	<div id="first" style="float: left; height: 40px; width: 40px; border: 1px solid black;"></div> + <div id="second" style="float: left; height: 40px; width: 40px; border: 1px solid black;"></div>
+	<div style="float: clear"></div>
+	</div>
+	<br/>
+	<input type="button" id="btnStart" value="Start" onclick="start()"/>
+	<input type="button" id="btnStop" value="Stop" onclick="stop()"/>
+	
+	<script>
+	function genRandomNum(top) {
+		return Math.floor((Math.random() * top) + 1);
+	}
+	
+		var first = genRandomNum(10);
+		debugger;
+		document.getElementById("first").innerHTML = first;
+		var second = genRandomNum(10);
+		debugger;
+		document.getElementById("second").innerHTML = second;
+		
+		var timer = null;
+		var divOffset = 0;
+		var dir = 0; 
+		//console.log(document.body.clientWidth);
+		function moveDiv() {
+			if(dir == 0) 
+				divOffset += 10;
+			else
+				divOffset -= 10;
+			if(divOffset >= 480)
+				dir = 1
+			if(divOffset <= 0)
+				dir = 0
+				
+			document.getElementById("move").style.left = divOffset;
+			//console.log(divOffset + 100);
+		}
+		
+		function start() {
+			console.log("START: " + timer);
+			if(!timer) {
+					console.log("hello");
+				timer = setInterval(moveDiv, 100);
+			}
+		}
+		
+		function stop() {
+			console.log("STOP: " + timer);
+			if(timer) {
+				clearInterval(timer);
+				timer = null;
+			}
+		}
+	
+	</script>
+</body>
+</html>
