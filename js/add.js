@@ -32,7 +32,7 @@ function check() {
 	var fst = parseInt(document.getElementById("first").innerHTML);
 	var sec = parseInt(document.getElementById("second").innerHTML);
 	var ans = parseInt(document.getElementById("answer").value);
-	document.getElementById("divResult").style.visibilisty = "visible";
+	document.getElementById("divResult").style.visibility = "visible";
 	if(ans == (fst + sec)) {
 		yourScore++;				
 		document.getElementById("divResult").innerHTML = '<div style="border: 1px solid #5cb85c; font-size: 30px; text-align: center; font-weight: 700; color: white; background-color: #5cb85c;">RIGHT ANSWER</div>';
@@ -63,10 +63,12 @@ function stop() {
 function startTimer() {
 	timer++;
 	hideResult();
-console.log(timer);
+
 	if(isGameOver() && timer == 5) {
 		stop();
 	}
+
+	// new game
 	if(timer == maxTimePerGame) {
 		gameCount++;
 		check();
@@ -79,11 +81,12 @@ console.log(timer);
 			updateTimerLabel();
 			timer = 0;
 			var whoWins = '';
+			debugger;
 			if(yourScore > oppScore) {
 				whoWins = 'YOU WIN';
 			}
 			else if(yourScore < oppScore) {
-				whoWIns = 'YOU LOOSE';
+				whoWins = 'YOU LOOSE';
 			} 
 			else {
 					whoWins = "DRAW";
@@ -92,6 +95,7 @@ console.log(timer);
 			document.getElementById("divWins").innerHTML = '<div style="border: 1px solid #5cb85c; font-size: 30px; text-align: center; font-weight: 700; color: white; background-color: #5cb85c;">' + whoWins + '</div>';
 			return;
 		}
+
 		timer = 0;
 		
 		drawBoard();
@@ -101,16 +105,16 @@ console.log(timer);
 } 
 
 function isGameOver() {
+	console.log('isGameOver gameCount: ' + gameCount + ' maxCount: ' + gameMax);
 	return gameCount >= gameMax;
 }
 
 function updateTimerLabel() {
-	
 	if((10 - timer) < 5) {
-		document.getElementById("divTimer").innerHTML = '<label id="lblTimer" style="font-weight: 700; font-size: 60px; line-height: 72px; color: red;">' + (10 - timer) + '</label>';
+		document.getElementById("divTimer").innerHTML = '<label id="lblTimer" style="font-weight: 700; font-size: 60px; line-height: 72px; color: red;">' + (isGameOver() ? 0 : 10 - timer) + '</label>';
 	} 
 	else {
-		document.getElementById("divTimer").innerHTML = '<label id="lblTimer" style="font-weight: 700; font-size: 60px; line-height: 72px;">' + (10 - timer) + '</label>';
+		document.getElementById("divTimer").innerHTML = '<label id="lblTimer" style="font-weight: 700; font-size: 60px; line-height: 72px;">' + (isGameOver() ? 0 : 10 - timer) + '</label>';
 	}
 }
 
