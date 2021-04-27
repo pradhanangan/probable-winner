@@ -9,6 +9,8 @@ var maxTimePerGame = 10;
 var yourScore = 0;
 var oppScore = 0;
 
+var countdown = 3;
+
 function drawBoard() {
 	document.getElementById("first").innerHTML = genRandomNum(10);
 	document.getElementById("plus").innerHTML = '+';
@@ -27,6 +29,7 @@ function drawBoard() {
 	updateGameLabel();
 	updateTimerLabel();
 }
+
 
 function check() {
 	var fst = parseInt(document.getElementById("first").innerHTML);
@@ -52,7 +55,7 @@ function genRandomNum(top) {
 }
 
 function start() {
-	drawBoard();
+	// drawBoard();
 	intervalId = setInterval(startTimer, 1000);
 }
 
@@ -61,47 +64,57 @@ function stop() {
 }
 
 function startTimer() {
-	timer++;
-	hideResult();
-
-	if(isGameOver() && timer == 5) {
+	if(countdown === 0) {
 		stop();
+		document.getElementById("rowCountdown").remove();
 	}
 
-	// new game
-	if(timer == maxTimePerGame) {
-		gameCount++;
-		check();
-
-		if(isGameOver()) {
-			console.log('game over!!!');
-			
-			// stop();
-			updateGameLabel();
-			updateTimerLabel();
-			timer = 0;
-			var whoWins = '';
-			debugger;
-			if(yourScore > oppScore) {
-				whoWins = 'YOU WIN';
-			}
-			else if(yourScore < oppScore) {
-				whoWins = 'YOU LOOSE';
-			} 
-			else {
-					whoWins = "DRAW";
-			}
-			document.getElementById("answer").disabled = true;
-			document.getElementById("divWins").innerHTML = '<div style="border: 1px solid #5cb85c; font-size: 30px; text-align: center; font-weight: 700; color: white; background-color: #5cb85c;">' + whoWins + '</div>';
-			return;
-		}
-
-		timer = 0;
-		
-		drawBoard();
-	}
+	updateCountdownLabel();
+	countdown--;
 	
-	updateTimerLabel();
+
+
+	// timer++;
+	// hideResult();
+
+	// if(isGameOver() && timer == 5) {
+	// 	stop();
+	// }
+
+	// // new game
+	// if(timer == maxTimePerGame) {
+	// 	gameCount++;
+	// 	check();
+
+	// 	if(isGameOver()) {
+	// 		console.log('game over!!!');
+			
+	// 		// stop();
+	// 		updateGameLabel();
+	// 		updateTimerLabel();
+	// 		timer = 0;
+	// 		var whoWins = '';
+	// 		debugger;
+	// 		if(yourScore > oppScore) {
+	// 			whoWins = 'YOU WIN';
+	// 		}
+	// 		else if(yourScore < oppScore) {
+	// 			whoWins = 'YOU LOOSE';
+	// 		} 
+	// 		else {
+	// 				whoWins = "DRAW";
+	// 		}
+	// 		document.getElementById("answer").disabled = true;
+	// 		document.getElementById("divWins").innerHTML = '<div style="border: 1px solid #5cb85c; font-size: 30px; text-align: center; font-weight: 700; color: white; background-color: #5cb85c;">' + whoWins + '</div>';
+	// 		return;
+	// 	}
+
+	// 	timer = 0;
+		
+	// 	drawBoard();
+	// }
+	
+	// updateTimerLabel();
 } 
 
 function isGameOver() {
@@ -127,3 +140,9 @@ function hideResult() {
 		document.getElementById("divResult").style.visibility = "hidden";
 	}	
 }
+
+function updateCountdownLabel() {
+	document.getElementById("lblCountdown").innerText = countdown; 
+}
+
+start();
