@@ -10,8 +10,6 @@ var yourScore = 0;
 var oppScore = 0;
 
 var countdown = 3;
-var GAMETIME = 60;
-var isDrawBoard = true;
 
 function drawBoard() {
 	document.getElementById("first").innerHTML = genRandomNum(10);
@@ -25,28 +23,11 @@ function drawBoard() {
 																							style="font-size: 60px; line-height: 72px; font-weight: 700; text-align: center;" 
 																							onkeypress="return event.charCode >= 48 && event.charCode <= 57" 
 																							placeholder="Type your answer">`;
-	const elAnswer = document.getElementById("answer");
-	elAnswer.addEventListener("keypress", function(e) {
-		if(e.key === 'Enter') {
-			if(document.getElementById('answer').value) {
-				var ret = checkAnswer();
-				if(ret) {
-					yourScore++
-					document.getElementById("lblYourScore").innerText = yourScore;
-				} else {
-					oppScore++;
-					document.getElementById("lblOppScore").innerText = oppScore;
-
-				}
-				drawBoard();
-			}
-		}
-	});
-	el.value = '';
-	el.focus();
-
-	// updateGameLabel();
-	// updateTimerLabel();
+	document.getElementById("answer").value = '';
+	document.getElementById("answer").focus();
+	
+	updateGameLabel();
+	updateTimerLabel();
 }
 
 
@@ -82,35 +63,14 @@ function stop() {
 	clearInterval(intervalId);
 }
 
-function startTimer() {	
-	if(countdown < 0) {
-		// Remove countdown row.
-		let el = document.getElementById("rowCountdown")
-		if(el) {
-			el.remove();
-		}
-
-		// START GAME
-		timer++;
-		updateTimerLabel();
-
-		if(isDrawBoard) {
-			drawBoard();
-			isDrawBoard = false;
-		}
-
-
-		// STOP GAME
-		if(timer === GAMETIME) {
-			stop();
-		}
-
-	} else {
-		updateCountdownLabel();
-		countdown--;
+function startTimer() {
+	if(countdown === 0) {
+		stop();
+		document.getElementById("rowCountdown").remove();
 	}
 
-	
+	updateCountdownLabel();
+	countdown--;
 	
 
 
@@ -154,7 +114,7 @@ function startTimer() {
 	// 	drawBoard();
 	// }
 	
-	
+	// updateTimerLabel();
 } 
 
 function isGameOver() {
@@ -162,21 +122,14 @@ function isGameOver() {
 	return gameCount >= gameMax;
 }
 
-// function updateTimerLabel() {
-	
-// 	if((10 - timer) < 5) {
-// 		document.getElementById("divTimer").innerHTML = '<label id="lblTimer" style="font-weight: 700; font-size: 60px; line-height: 72px; color: red;">' + (isGameOver() ? 0 : 10 - timer) + '</label>';
-// 	} 
-// 	else {
-// 		document.getElementById("divTimer").innerHTML = '<label id="lblTimer" style="font-weight: 700; font-size: 60px; line-height: 72px;">' + (isGameOver() ? 0 : 10 - timer) + '</label>';
-// 	}
-// }
-
 function updateTimerLabel() {
-	document.getElementById("divTimer").innerHTML = '<label id="lblTimer" style="font-weight: 700; font-size: 60px; line-height: 72px;">' + timer + '</label>';
+	if((10 - timer) < 5) {
+		document.getElementById("divTimer").innerHTML = '<label id="lblTimer" style="font-weight: 700; font-size: 60px; line-height: 72px; color: red;">' + (isGameOver() ? 0 : 10 - timer) + '</label>';
+	} 
+	else {
+		document.getElementById("divTimer").innerHTML = '<label id="lblTimer" style="font-weight: 700; font-size: 60px; line-height: 72px;">' + (isGameOver() ? 0 : 10 - timer) + '</label>';
+	}
 }
-
-
 
 function updateGameLabel() {
 	document.getElementById("lblGameCount").innerText = "Game #" + (isGameOver() ? gameMax : gameCount + 1);
@@ -190,14 +143,6 @@ function hideResult() {
 
 function updateCountdownLabel() {
 	document.getElementById("lblCountdown").innerText = countdown; 
-}
-
-
-function checkAnswer() {
-	var fst = parseInt(document.getElementById("first").innerHTML);
-	var sec = parseInt(document.getElementById("second").innerHTML);
-	var ans = parseInt(document.getElementById("answer").value);
-	return ans === (fst + sec);
 }
 
 start();
