@@ -2,7 +2,7 @@ var intervalId;
 var timer = 0;
 
 var countdown = 3;
-var GAMETIME = 10;
+var GAMETIME = 60;
 var isDrawBoard = true;
 var gameCount = 0;
 var numCorrectAnswer = 0;
@@ -24,9 +24,9 @@ var avatars = ['iconfinder_batman_hero_avatar_comics_4043232.png',
 												'iconfinder_scientist_einstein_avatar_professor_4043274.png']
 
 function drawBoard() {
-	document.getElementById("first").innerHTML = genRandomNum(10);
+	document.getElementById("first").innerHTML = genRandomNum(0, 5);
 	document.getElementById("plus").innerHTML = '+';
-	document.getElementById("second").innerHTML = genRandomNum(10);
+	document.getElementById("second").innerHTML = genRandomNum(0, 5);
 	document.getElementById("equals").innerHTML = '=';
 	document.getElementById("divAnswer").innerHTML = `<input id="answer" 
 																							type="text" 
@@ -37,13 +37,15 @@ function drawBoard() {
 																							placeholder="Type your answer">`;
 	
 	const elAnswer = document.getElementById("answer");
-	elAnswer.addEventListener("keypress", onKeyPress);
+	elAnswer.addEventListener("keypress", onKeyPressAnswer);
 	elAnswer.value = '';
 	elAnswer.focus();
 }
 
-function genRandomNum(top) {
-	return Math.floor(Math.random() * top);
+function genRandomNum(min, max) {
+	min = Math.ceil(min);
+  max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 }
 
 function start() {
@@ -135,7 +137,7 @@ function showSummaryLabel() {
 			+ 'Incorrect: ' + numIncorrectAnswer + '</label><br/>';
 }
 
-function onKeyPress(e) {
+function onKeyPressAnswer(e) {
 	if(e.key === 'Enter') {
 		if(document.getElementById('answer').value) {
 			var ret = checkAnswer();
