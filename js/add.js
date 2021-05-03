@@ -1,13 +1,27 @@
 var intervalId;
 var timer = 0;
 
+var countdown = 3;
+var GAMETIME = 10;
+var isDrawBoard = true;
 var gameCount = 0;
-var gameMax = 1;
-
-var maxTimePerGame = 10;
+var numCorrectAnswer = 0;
+var numIncorrectAnswer = 0;
 
 var yourScore = 0;
-var oppScore = 0;
+
+var avatars = ['iconfinder_batman_hero_avatar_comics_4043232.png', 
+												'iconfinder_bear_russian_animal_avatar_4043234.png', 
+												'iconfinder_boy_person_avatar_kid_4043238.png', 
+												'iconfinder_cactus_cacti_avatar_pirate_4043242.png',
+												'iconfinder_coffee_zorro_avatar_cup_4043245.png',
+												'iconfinder_geisha_japanese_woman_avatar_4043249.png',
+												'iconfinder_girl_avatar_child_kid_4043250.png',
+												'iconfinder_girl_female_woman_avatar_4043251.png',
+												'iconfinder_grandma_elderly_nanny_avatar_4043254.png',
+												'iconfinder_indian_woman_hindi_avatar_4043259.png',
+												'iconfinder_pilot_traveller_person_avatar_4043277.png',
+												'iconfinder_scientist_einstein_avatar_professor_4043274.png']
 
 function drawBoard() {
 	document.getElementById("first").innerHTML = genRandomNum(10);
@@ -21,30 +35,11 @@ function drawBoard() {
 																							style="font-size: 60px; line-height: 72px; font-weight: 700; text-align: center;" 
 																							onkeypress="return event.charCode >= 48 && event.charCode <= 57" 
 																							placeholder="Type your answer">`;
-	document.getElementById("answer").value = '';
-	document.getElementById("answer").focus();
 	
-	updateGameLabel();
-	updateTimerLabel();
-}
-
-function check() {
-	var fst = parseInt(document.getElementById("first").innerHTML);
-	var sec = parseInt(document.getElementById("second").innerHTML);
-	var ans = parseInt(document.getElementById("answer").value);
-	document.getElementById("divResult").style.visibility = "visible";
-	if(ans == (fst + sec)) {
-		yourScore++;				
-		document.getElementById("divResult").innerHTML = '<div style="border: 1px solid #5cb85c; font-size: 30px; text-align: center; font-weight: 700; color: white; background-color: #5cb85c;">RIGHT ANSWER</div>';
-		document.getElementById("lblYourScore").innerText = yourScore;
-		
-	}
-	else {
-		oppScore++;
-		document.getElementById("divResult").innerHTML = '<div style="border: 1px solid #d9534f; font-size: 30px; text-align: center; font-weight: 700; color: white; background-color: #d9534f;">WRONG ANSWER</div>';
-		document.getElementById("lblOppScore").innerText = oppScore;
-		
-	}
+	const elAnswer = document.getElementById("answer");
+	elAnswer.addEventListener("keypress", onKeyPress);
+	elAnswer.value = '';
+	elAnswer.focus();
 }
 
 function genRandomNum(top) {
@@ -52,7 +47,16 @@ function genRandomNum(top) {
 }
 
 function start() {
-	drawBoard();
+	let name = localStorage.getItem("UserName");
+	let idx = localStorage.getItem("UserImageIndex");
+
+	if(!name) { location.href = "name.html"; }
+	if(!idx) { location.href = "avatar.html"; }
+
+	document.getElementById("lblName").innerText = name;
+	let selectedImage = avatars[idx];
+	document.getElementById("imgProfile").src = "./images/" + selectedImage;
+	
 	intervalId = setInterval(startTimer, 1000);
 }
 
@@ -60,70 +64,111 @@ function stop() {
 	clearInterval(intervalId);
 }
 
-function startTimer() {
-	timer++;
-	hideResult();
-
-	if(isGameOver() && timer == 5) {
-		stop();
-	}
-
-	// new game
-	if(timer == maxTimePerGame) {
-		gameCount++;
-		check();
-
-		if(isGameOver()) {
-			console.log('game over!!!');
-			
-			// stop();
-			updateGameLabel();
-			updateTimerLabel();
-			timer = 0;
-			var whoWins = '';
-			debugger;
-			if(yourScore > oppScore) {
-				whoWins = 'YOU WIN';
-			}
-			else if(yourScore < oppScore) {
-				whoWins = 'YOU LOOSE';
-			} 
-			else {
-					whoWins = "DRAW";
-			}
-			document.getElementById("answer").disabled = true;
-			document.getElementById("divWins").innerHTML = '<div style="border: 1px solid #5cb85c; font-size: 30px; text-align: center; font-weight: 700; color: white; background-color: #5cb85c;">' + whoWins + '</div>';
-			return;
+function startTimer() {	
+	if(countdown < 0) {
+		// Remove countdown row.
+		let el = document.getElementById("rowCountdown")
+		if(el) {
+			el.remove();
 		}
 
-		timer = 0;
-		
-		drawBoard();
+		// START GAME
+		timer++;
+		updateTimerLabel();
+
+		if(isDrawBoard) {
+			gameCount++;
+			drawBoard();
+			isDrawBoard = false;
+		}
+
+		// STOP GAME
+		if(isGameOver()) {
+			stop();
+			document.getElementById("answer").disabled = true;
+			showGameoverLabel();
+			showPercentLabel();
+			showRestartBtn();
+		}
+
+	} else {
+		updateCountdownLabel();
+		countdown--;
 	}
-	
-	updateTimerLabel();
 } 
 
 function isGameOver() {
-	console.log('isGameOver gameCount: ' + gameCount + ' maxCount: ' + gameMax);
-	return gameCount >= gameMax;
+	return GAMETIME === timer;
+}
+
+function updateCountdownLabel() {
+	document.getElementById("lblCountdown").innerText = countdown; 
 }
 
 function updateTimerLabel() {
-	if((10 - timer) < 5) {
-		document.getElementById("divTimer").innerHTML = '<label id="lblTimer" style="font-weight: 700; font-size: 60px; line-height: 72px; color: red;">' + (isGameOver() ? 0 : 10 - timer) + '</label>';
-	} 
-	else {
-		document.getElementById("divTimer").innerHTML = '<label id="lblTimer" style="font-weight: 700; font-size: 60px; line-height: 72px;">' + (isGameOver() ? 0 : 10 - timer) + '</label>';
+	document.getElementById("divTimer").innerHTML = '<label id="lblTimer" style="font-weight: 700; font-size: 60px; line-height: 72px;">' 
+	+ timer + '</label>';
+}
+
+function showGameoverLabel() {
+	document.getElementById("divGameover").innerHTML = '<label style="font-weight: 700; font-size: 36px; line-height: 72px;">Game Over</label>';
+}
+
+function showPercentLabel() {
+	document.getElementById("divPercent").innerHTML = '<label style="font-weight: 700; font-size: 48px; line-height: 72px;">' 
+		+ Math.round((numCorrectAnswer/gameCount) * 100) + '% Correct</label>';
+}
+
+function showRestartBtn() {
+	document.getElementById("divRestart").innerHTML = `<input type="button" 
+																																													id="btnRestart" 
+																																													value="Restart" 
+																																													style="font-weight: 700; font-size: 36px; line-height: 60px;"/>`;
+	const elRestart = document.getElementById("btnRestart");
+	elRestart.addEventListener("click", onRestartClick);
+}
+
+function showSummaryLabel() {
+	document.getElementById("divSummary").innerHTML = '<label style="font-weight: 700; font-size: 18px;">Summary</label><br/>'  
+			+ '<label style="font-weight:400; font-size:18px;">Total questions: ' + gameCount + '<br/>' 
+			+ 'Correct: ' + numCorrectAnswer + '<br/>' 
+			+ 'Incorrect: ' + numIncorrectAnswer + '</label><br/>';
+}
+
+function onKeyPress(e) {
+	if(e.key === 'Enter') {
+		if(document.getElementById('answer').value) {
+			var ret = checkAnswer();
+			if(ret) {
+				numCorrectAnswer++;
+				document.getElementById("lblYourScore").innerHTML += gameCount + ') ' + getQuestionStr() + ' <span>&#10004;</span><br/>';;
+			} else {
+				numIncorrectAnswer++;
+				document.getElementById("lblYourScore").innerHTML += gameCount + ') ' + getQuestionStr() + ' <span>&#10060;</span><br/>';
+			}
+			if((GAMETIME - timer) <= 1) return;
+			gameCount++;
+			drawBoard();
+		}
 	}
 }
 
-function updateGameLabel() {
-	document.getElementById("lblGameCount").innerText = "Game #" + (isGameOver() ? gameMax : gameCount + 1);
+function onRestartClick(e) {
+	location.reload();
 }
 
-function hideResult() {
-	if(timer == 5) {
-		document.getElementById("divResult").style.visibility = "hidden";
-	}	
+function checkAnswer() {
+	var fst = parseInt(document.getElementById("first").innerHTML);
+	var sec = parseInt(document.getElementById("second").innerHTML);
+	var ans = parseInt(document.getElementById("answer").value);
+	return ans === (fst + sec);
 }
+
+function getQuestionStr() {
+	var fst = parseInt(document.getElementById("first").innerHTML);
+	var sec = parseInt(document.getElementById("second").innerHTML);
+	var ans = parseInt(document.getElementById("answer").value);
+	return fst + ' + '  + sec + ' = ' + ans;
+}
+
+start();

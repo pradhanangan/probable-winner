@@ -207,7 +207,7 @@
     }
 
     function next() {
-      location.href = "opponent.html";
+      location.href = "add.html";
     }
 
     function selectAvatar(index) {
@@ -218,6 +218,7 @@
 
     function init() {
       let name = localStorage.getItem("UserName");
+      if(!name) { location.href = "index.html"; }
       document.getElementById("lblName").innerText = name;
     }
 
