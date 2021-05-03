@@ -60,83 +60,109 @@
 			</label>
 		</div>
 	</div> <!-- ./First row -->
-<br/>
+	<div class="row" id="rowCountdown">
+		<div class="col">
+			<label id="lblCountdown">
+				
+			</label>
+		</div>
+	</div>
+
+	<!-- Second row -->
+	<div class="row">
+		<div class="col">
+			<button 
+				class="btn btn-success" 
+				style="font-weight: 600; font-size:24px; border-radius: 0;"
+				onclick="start()">start
+			</button>
+			<button 
+				class="btn btn-success" 
+				style="font-weight: 600; font-size:24px; border-radius: 0;"
+				onclick="stop()">stop
+			</button>
+		</div>
+	</div> <!-- ./Second row -->
+
 	<!-- Game row -->
 	<div class="row">
 
 		<!-- Game board column -->
 		<div class="col-lg-8">
 
-					<div class="row" id="rowCountdown">
-						<div class="col" style="text-align: center;">
-							<label id="lblCountdown" style="font-weight: 700; font-size: 180px; line-height: 200px;">
-							</label>
-						</div>
-					</div>
-
 					<div class="row">
 						<div class="col-lg-4">
 							<label id="lblGameCount" style="font-weight: 600; font-size: 24px; line-height: 36px;">
 							</label>	
 						</div>
-						<div class="col-lg-4" id="divTimer">	
+						<div class="col-lg-4" id="divTimer">			
 						</div>
 					</div>
 			
 					<div class="row">
-						<div id="first" class="col-lg-3 label_num d-flex justify-content-center">
+						<div id="first" class="col-lg-3 label_num">
 						</div>
-						<div id="plus" class="col-lg-1 label_num d-flex justify-content-center">
+						<div id="plus" class="col-lg-1 label_num">
 						</div>
-						<div id="second" class="col-lg-3 label_num d-flex justify-content-center">
+						<div id="second" class="col-lg-3 label_num">
 						</div>
-						<div id="equals" class="col-lg-1 label_num d-flex justify-content-center">
+						<div id="equals" class="col-lg-1 label_num">
 						</div>
-						<div id="divAnswer" class="col-lg-4" style="height:100px;line-height:72px;text-align:center;font-size:60px;font-weight:700;">
-						</div>
-					</div>
-
-					<div class="row">
-						<div id="divGameover" class="col" style="text-align:center;">
-						</div>
-					</div>
-					<div class="row">
-						<div id="divPercent" class="col" style="text-align:center;">
-						</div>
-					</div>
-					<div class="row">
-						<div id="divRestart" class="col" style="text-align:center;">
-						</div>
-					</div>
-					<div class="row">
-						<div id="divSummary" class="col">
+						<div id="divAnswer" class="col-lg-4" style="height: 100px; line-height: 72px; text-align: center; font-size: 60px; font-weight: 700;">
 						</div>
 					</div>
 
+					<div class="row">
+						<div class="col mx-auto">
+							<div  id="divResult" style="font-size: 30px; text-align: center; font-weight: 700;">
+							</div>	
+						</div>
+					</div>
+<br/>
+					<div class="row">
+						<div class="col mx-auto">
+							<div  id="divWins" style="font-size: 30px; text-align: center; font-weight: 700;">
+							</div>	
+						</div>
+					</div>
+					
+	
 		</div> <!-- ./Game board column -->
 
 		<!-- Score column -->
 		<div class="col-lg-4"> 
 
 			<div class="row">
-				<div class="col-lg-4">
-					<div style="height: 80px; width: 80px;">
+				<div class="col-lg-6" style="text-align:center;">
+					<div style="height: 100px; width: 100px;">
 						<a href="#">
-							<img id="imgProfile" src="./images/iconfinder_30.User_290120.png" style="height:100%; width:100%;" >
+							<img id="imgProfile" src="./images/iconfinder_30.User_290120.png" style="height:100%; width:100%">
 						</a>
 					</div>
 				</div>
-				<div class="col-lg-8 my-auto">
-					<label id="lblName" style="font-weight: 600; font-size: 24px; line-height: 36px;">
-						
-					</label>
+				<div class="col-lg-6" style="text-align:center;">
+					<div style="height: 100px; width: 100px;">
+						<a href="#">
+							<img id="imgProfile" src="./images/iconfinder_30.User_290120.png" style="height:100%; width:100%">
+						</a>
+					</div>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col">
-						<label id="lblYourScore" style="font-weight: 400; font-size: 18px;">
+				<div class="col-lg-6" style="text-align:center;">
+					<div style="height: 100px; width: 100px;">
+						<label id="lblYourScore" style="font-weight: 600; font-size: 60px; line-height: 72px;">
+							0
 						</label>
+					</div>
+				</div>
+				<div class="col-lg-6"  style="text-align:center;">
+					<div style="height: 100px; width: 100px;">
+						<label id="lblOppScore" style="font-weight: 600; font-size: 60px; line-height: 72px;">
+							0
+						</label>
+					</div>
 				</div>
 			</div>
 
@@ -155,7 +181,7 @@
 <script src="js/jquery-3.5.1.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/add.js"></script>
+<script src="js/add-old.js"></script>
 
 </body>
 </html>

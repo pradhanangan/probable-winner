@@ -23,8 +23,8 @@
         <div style="margin-top: 10px;">
         <button 
           class="btn btn-success" 
-          style="font-weight: 700; font-size:24px; display: inline-block; vertical-align: middle;"
-          onclick="openNamePg()">&gt;&gt;
+          style="font-weight: 700; font-size:24px; display: inline-block; vertical-align: middle; border-radius: 0;"
+          onclick="openNamePg()">&gt;
         </button>
       </div>
       </div>
@@ -38,6 +38,12 @@
     function openNamePg() {
       location.href = "name.html";
     }
+    
+    function init() {
+      localStorage.clear();
+    }
+
+    init();
   </script>
 </body>
 </html>
