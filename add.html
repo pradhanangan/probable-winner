@@ -47,20 +47,24 @@
 		line-height: 72px; 
 		
 	}
+	.result-height {
+		height: calc(100vh - 250px);
+	}
 </style>
 </head>
 <body>
-<div class="container">
+<div class="container	">
 
 	<!-- First row -->
 	<div class="row">
 		<div class="col">
 			<label style="font-weight: 700; font-size: 60px; line-height: 72px;">
-				Let's start the game.
+				Let's play the game.
 			</label>
 		</div>
 	</div> <!-- ./First row -->
-<br/>
+
+	<br/>
 	<!-- Game row -->
 	<div class="row">
 
@@ -84,13 +88,13 @@
 					</div>
 			
 					<div class="row">
-						<div id="first" class="col-lg-3 label_num d-flex justify-content-center">
+						<div id="divFirst" class="col-lg-3 label_num d-flex justify-content-center">
 						</div>
-						<div id="plus" class="col-lg-1 label_num d-flex justify-content-center">
+						<div id="divOperator" class="col-lg-1 label_num d-flex justify-content-center">
 						</div>
-						<div id="second" class="col-lg-3 label_num d-flex justify-content-center">
+						<div id="divSecond" class="col-lg-3 label_num d-flex justify-content-center">
 						</div>
-						<div id="equals" class="col-lg-1 label_num d-flex justify-content-center">
+						<div id="divEquals" class="col-lg-1 label_num d-flex justify-content-center">
 						</div>
 						<div id="divAnswer" class="col-lg-4" style="height:100px;line-height:72px;text-align:center;font-size:60px;font-weight:700;">
 						</div>
@@ -134,7 +138,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col">
+				<div class="col result-height" style="overflow-y: auto;">
 						<label id="lblYourScore" style="font-weight: 400; font-size: 18px;">
 						</label>
 				</div>
@@ -156,6 +160,7 @@
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/add.js"></script>
+<script src="js/board.js"></script>
 
 </body>
 </html>

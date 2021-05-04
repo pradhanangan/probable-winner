@@ -23,20 +23,21 @@
             
             <div class="row">
               <div class="col">
-                
                 <input type="text"
                             id="txtName" 
                             placeholder="Enter your name" 
                             onkeyup="onKeyUpTxtName()"
-                            style="outline: 0; border-width: 0 0 3px; font-weight: 700; font-size: 36px; line-height: 72px;" />
-        
+                            style="outline: 0; border-width: 0 0 3px; font-weight: 700; font-size: 36px; line-height: 36px;" />
               </div>
             </div>
+
+            <br/>
+            <br/>
 
             <div class="row">
               <div class="col">
                 
-                <label style="font-weight: 700; font-size: 36px; line-height: 72px; display: inline-block; vertical-align: middle;">
+                <label style="font-weight: 700; font-size: 36px; line-height: 36px; display: inline-block; vertical-align: middle;">
                   Choose your avatar
                 </label>
         
@@ -137,13 +138,44 @@
                 </div>
               </div>
             </div>
+
+            <br/>
+            <br/>
+            <div class="row">
+              <div class="col">
+                
+                <label style="font-weight: 700; font-size: 36px; line-height: 36px; display: inline-block; vertical-align: middle;">
+                  Select level
+                </label>
+        
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button
+                id="btnLevel0" 
+                class="btn"  
+                style="font-weight: 700; font-size: 24px; line-height: 36px; display: inline-block; vertical-align: middle; border-radius: 0; border: 1px solid black;"
+                onclick="selectLevel(0)">
+                level 0
+              </button>
+
+              <button
+                id="btnLevel1" 
+                class="btn" 
+                style="margin-left: 15px; font-weight: 700; font-size: 24px; line-height: 36px;   display: inline-block; vertical-align: middle; border-radius: 0; border: 1px solid black;"
+                onclick="selectLevel(1)">
+                level 1
+              </button>
+              </div>
+            </div>
     
           </div>
     
           <div class="col-lg-6">
             <div class="row">
               <div class="col-lg-12">
-                <label style="font-weight: 600; font-size: 24px; line-height: 36px;">
+                <label style="font-weight: 600; font-size: 24px;">
                   Your profile
                 </label>
               </div>
@@ -156,7 +188,19 @@
                   </a>
                 </div>
               </div>
-              <div class="col-lg-4 my-auto" id="divName" style="font-weight: 600; font-size: 24px; line-height: 36px;">
+              <div class="col-lg-4 my-auto" id="divName" style="font-weight: 500; font-size: 20px; line-height: 36px;">
+              </div>
+            </div>
+            <br/>
+            <div class="row">
+              <div class="col">
+                <label style="font-weight: 600; font-size: 24px;">
+                  Settings
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col my-auto" id="divLevel" style="margin-left: 15px; font-weight: 500; font-size: 20px; line-height: 36px;">
               </div>
             </div>
             <hr/>
@@ -216,6 +260,8 @@
                           'iconfinder_scientist_einstein_avatar_professor_4043274.png'];
     
     var selectedImageIdx = -1;
+    var NUMLEVEL = 2;
+    var selectedLevel = 0;
 
     function onKeyUpTxtName() {
       var name = document.getElementById("txtName").value;
@@ -247,11 +293,28 @@
       document.getElementById("txtName").value = "";
       document.getElementById("divName").innerHTML = "";
       document.getElementById("imgProfile").src = "./images/iconfinder_30.User_290120.png";
+
+      selectLevel(0);
+    }
+
+    function selectLevel(idx) {
+      selectedLevel = idx;
+      localStorage.setItem("Level", idx);
+      for(i = 0; i < NUMLEVEL; i++) {
+        if(i === idx) {
+          document.getElementById("divLevel").innerHTML = "Level " + selectedLevel;
+          if(!document.getElementById("btnLevel" + i).classList.contains('btn-danger'))
+	          document.getElementById("btnLevel" + i).classList.add('btn-danger');
+        } else {
+          document.getElementById("btnLevel" + i).classList.remove('btn-danger');
+        }
+      }
     }
 
     function init() {
       let name = localStorage.getItem("UserName");
 	    let idx = localStorage.getItem("UserImageIndex");
+      let level = localStorage.getItem("Level");
       if(name) {
         document.getElementById("txtName").value = name;
         document.getElementById("divName").innerHTML = name
@@ -259,6 +322,8 @@
       if(idx && idx != -1) {
         selectAvatar(idx);
       }
+      selectedLevel = level ? parseInt(level) : 0;
+      selectLevel(selectedLevel);
     }
 
     init();
