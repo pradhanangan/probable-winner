@@ -1,8 +1,8 @@
 var intervalId;
 var timer = 0;
 
-var countdown = 3;
-var GAMETIME = 60;
+var countdown = 1;
+var GAMETIME = 10;
 var isDrawBoard = true;
 var gameCount = 0;
 var numCorrectAnswer = 0;
@@ -23,30 +23,30 @@ var avatars = ['iconfinder_batman_hero_avatar_comics_4043232.png',
 												'iconfinder_pilot_traveller_person_avatar_4043277.png',
 												'iconfinder_scientist_einstein_avatar_professor_4043274.png']
 
-function drawBoard() {
-	document.getElementById("first").innerHTML = genRandomNum(0, 5);
-	document.getElementById("plus").innerHTML = '+';
-	document.getElementById("second").innerHTML = genRandomNum(0, 5);
-	document.getElementById("equals").innerHTML = '=';
-	document.getElementById("divAnswer").innerHTML = `<input id="answer" 
-																							type="text" 
-																							size="1px" 
-																							maxlength="2" 
-																							style="font-size: 60px; line-height: 72px; font-weight: 700; text-align: center;" 
-																							onkeypress="return event.charCode >= 48 && event.charCode <= 57" 
-																							placeholder="Type your answer">`;
+// function drawBoard() {
+// 	document.getElementById("divFirst").innerHTML = genRandomNum(0, 5);
+// 	document.getElementById("divOperator").innerHTML = '+';
+// 	document.getElementById("divSecond").innerHTML = genRandomNum(0, 5);
+// 	document.getElementById("divEquals").innerHTML = '=';
+// 	document.getElementById("divAnswer").innerHTML = `<input id="txtAnswer" 
+// 																							type="text" 
+// 																							size="1px" 
+// 																							maxlength="2" 
+// 																							style="font-size: 60px; line-height: 72px; font-weight: 700; text-align: center;" 
+// 																							onkeypress="return event.charCode >= 48 && event.charCode <= 57" 
+// 																							placeholder="Type your answer">`;
 	
-	const elAnswer = document.getElementById("answer");
-	elAnswer.addEventListener("keypress", onKeyPressAnswer);
-	elAnswer.value = '';
-	elAnswer.focus();
-}
+// 	const elAnswer = document.getElementById("txtAnswer");
+// 	elAnswer.addEventListener("keypress", onKeyPressAnswer);
+// 	elAnswer.value = '';
+// 	elAnswer.focus();
+// }
 
-function genRandomNum(min, max) {
-	min = Math.ceil(min);
-  max = Math.floor(max);
-	return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
-}
+// function genRandomNum(min, max) {
+// 	min = Math.ceil(min);
+//   max = Math.floor(max);
+// 	return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+// }
 
 function start() {
 	let name = localStorage.getItem("UserName");
@@ -80,14 +80,15 @@ function startTimer() {
 
 		if(isDrawBoard) {
 			gameCount++;
-			drawBoard();
+			gameboard.draw();
 			isDrawBoard = false;
 		}
 
 		// STOP GAME
 		if(isGameOver()) {
 			stop();
-			document.getElementById("answer").disabled = true;
+			// document.getElementById("txtAnswer").disabled = true;
+			gameboard.disableAnswerFld();
 			showGameoverLabel();
 			showPercentLabel();
 			showRestartBtn();
@@ -123,9 +124,9 @@ function showPercentLabel() {
 
 function showRestartBtn() {
 	document.getElementById("divRestart").innerHTML = `<input type="button" 
-																																													id="btnRestart" 
-																																													value="Restart" 
-																																													style="font-weight: 700; font-size: 36px; line-height: 60px;"/>`;
+																							id="btnRestart" 
+																							value="Restart" 
+																							style="font-weight: 700; font-size: 36px; line-height: 60px;"/>`;
 	const elRestart = document.getElementById("btnRestart");
 	elRestart.addEventListener("click", onRestartClick);
 }
@@ -139,7 +140,7 @@ function showSummaryLabel() {
 
 function onKeyPressAnswer(e) {
 	if(e.key === 'Enter') {
-		if(document.getElementById('answer').value) {
+		if(document.getElementById('txtAnswer').value) {
 			var ret = checkAnswer();
 			if(ret) {
 				numCorrectAnswer++;
@@ -150,7 +151,7 @@ function onKeyPressAnswer(e) {
 			}
 			if((GAMETIME - timer) <= 1) return;
 			gameCount++;
-			drawBoard();
+			board();
 		}
 	}
 }
@@ -159,18 +160,20 @@ function onRestartClick(e) {
 	location.reload();
 }
 
-function checkAnswer() {
-	var fst = parseInt(document.getElementById("first").innerHTML);
-	var sec = parseInt(document.getElementById("second").innerHTML);
-	var ans = parseInt(document.getElementById("answer").value);
-	return ans === (fst + sec);
-}
+// function checkAnswer() {
+// 	var fst = parseInt(document.getElementById("divFirst").innerHTML);
+// 	var sec = parseInt(document.getElementById("divSecond").innerHTML);
+// 	var ans = parseInt(document.getElementById("txtAnswer").value);
+// 	return ans === (fst + sec);
+// }
 
-function getQuestionStr() {
-	var fst = parseInt(document.getElementById("first").innerHTML);
-	var sec = parseInt(document.getElementById("second").innerHTML);
-	var ans = parseInt(document.getElementById("answer").value);
-	return fst + ' + '  + sec + ' = ' + ans;
-}
+// function getQuestionStr() {
+// 	var fst = parseInt(document.getElementById("divFirst").innerHTML);
+// 	var sec = parseInt(document.getElementById("divSecond").innerHTML);
+// 	var ans = parseInt(document.getElementById("txtAnswer").value);
+// 	return fst + ' + '  + sec + ' = ' + ans;
+// }
+
+
 
 start();
