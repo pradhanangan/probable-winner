@@ -1,5 +1,4 @@
-var gameboard = (function() {
-    var LEVEL = 1;
+// var gameboard = (function() {
 
     var elFirst = "divFirst";
     var elOperator = "divOperator";
@@ -30,12 +29,6 @@ var gameboard = (function() {
                 levelOne();
                 break;
         }
-    }
-
-    function genRandomNum(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
     }
 
     function levelZero() {
@@ -74,9 +67,23 @@ var gameboard = (function() {
         elTxtAnswer.focus();
     }
 
-    // function onKeyPressAnswer() {
-
-    // }
+    function onKeyPressAnswer(e) {
+        if(e.key === 'Enter') {
+            if(document.getElementById('txtAnswer').value) {
+                var ret = checkAnswer();
+                if(ret) {
+                    numCorrectAnswer++;
+                    document.getElementById("lblYourScore").innerHTML += gameCount + ') ' + getQuestionStr() + ' <span>&#10004;</span><br/>';;
+                } else {
+                    numIncorrectAnswer++;
+                    document.getElementById("lblYourScore").innerHTML += gameCount + ') ' + getQuestionStr() + ' <span>&#10060;</span><br/>';
+                }
+                if((GAMETIME - timer) <= 1) return;
+                gameCount++;
+                board();
+            }
+        }
+    }
 
     function getQuestionStr() {
         let fst = parseInt(document.getElementById(elFirst).innerHTML);
@@ -94,18 +101,24 @@ var gameboard = (function() {
         return ans === math_it_up[ops](fst, sec);
     }
 
+    function disableAnswerFld() {
+        document.getElementById(idAnswerFld).disabled = true;
+    }
+
+    function genRandomNum(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+    }
+
     // https://stackoverflow.com/questions/13077923/how-can-i-convert-a-string-into-a-math-operator-in-javascript
     var math_it_up = {
         '+': function (x, y) { return x + y },
         '-': function (x, y) { return x - y }
     };
 
-    function disableAnswerFld() {
-        document.getElementById(idAnswerFld).disabled = true;
-    }
-
-    return {
-        draw: board,
-        disableAnswerFld: disableAnswerFld
-    };
-})();
+//     return {
+//         draw: board,
+//         disableAnswerFld: disableAnswerFld
+//     };
+// })();

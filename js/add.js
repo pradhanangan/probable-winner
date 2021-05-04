@@ -1,13 +1,13 @@
 var intervalId;
 var timer = 0;
 
-var countdown = 1;
-var GAMETIME = 10;
+var LEVEL = 0;
+var countdown = 3;
+var GAMETIME = 60;
 var isDrawBoard = true;
 var gameCount = 0;
 var numCorrectAnswer = 0;
 var numIncorrectAnswer = 0;
-
 var yourScore = 0;
 
 var avatars = ['iconfinder_batman_hero_avatar_comics_4043232.png', 
@@ -51,9 +51,12 @@ var avatars = ['iconfinder_batman_hero_avatar_comics_4043232.png',
 function start() {
 	let name = localStorage.getItem("UserName");
 	let idx = localStorage.getItem("UserImageIndex");
+	let lvl = localStorage.getItem("Level");
 
 	if(!name) { location.href = "name.html"; }
 	if(!idx) { location.href = "avatar.html"; }
+	debugger;
+	LEVEL = lvl ? parseInt(lvl) : 0;
 
 	document.getElementById("lblName").innerText = name;
 	let selectedImage = avatars[idx];
@@ -80,7 +83,7 @@ function startTimer() {
 
 		if(isDrawBoard) {
 			gameCount++;
-			gameboard.draw();
+			board();
 			isDrawBoard = false;
 		}
 
@@ -88,7 +91,7 @@ function startTimer() {
 		if(isGameOver()) {
 			stop();
 			// document.getElementById("txtAnswer").disabled = true;
-			gameboard.disableAnswerFld();
+			disableAnswerFld();
 			showGameoverLabel();
 			showPercentLabel();
 			showRestartBtn();
@@ -138,23 +141,23 @@ function showSummaryLabel() {
 			+ 'Incorrect: ' + numIncorrectAnswer + '</label><br/>';
 }
 
-function onKeyPressAnswer(e) {
-	if(e.key === 'Enter') {
-		if(document.getElementById('txtAnswer').value) {
-			var ret = checkAnswer();
-			if(ret) {
-				numCorrectAnswer++;
-				document.getElementById("lblYourScore").innerHTML += gameCount + ') ' + getQuestionStr() + ' <span>&#10004;</span><br/>';;
-			} else {
-				numIncorrectAnswer++;
-				document.getElementById("lblYourScore").innerHTML += gameCount + ') ' + getQuestionStr() + ' <span>&#10060;</span><br/>';
-			}
-			if((GAMETIME - timer) <= 1) return;
-			gameCount++;
-			board();
-		}
-	}
-}
+// function onKeyPressAnswer(e) {
+// 	if(e.key === 'Enter') {
+// 		if(document.getElementById('txtAnswer').value) {
+// 			var ret = checkAnswer();
+// 			if(ret) {
+// 				numCorrectAnswer++;
+// 				document.getElementById("lblYourScore").innerHTML += gameCount + ') ' + getQuestionStr() + ' <span>&#10004;</span><br/>';;
+// 			} else {
+// 				numIncorrectAnswer++;
+// 				document.getElementById("lblYourScore").innerHTML += gameCount + ') ' + getQuestionStr() + ' <span>&#10060;</span><br/>';
+// 			}
+// 			if((GAMETIME - timer) <= 1) return;
+// 			gameCount++;
+// 			board();
+// 		}
+// 	}
+// }
 
 function onRestartClick(e) {
 	location.reload();
