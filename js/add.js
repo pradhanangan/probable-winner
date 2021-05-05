@@ -3,7 +3,7 @@ var timer = 0;
 
 var LEVEL = 0;
 var countdown = 3;
-var GAMETIME = 60;
+var GAMETIME = 5;
 
 var isDrawBoard = true;
 var gameCount = 0;
@@ -30,7 +30,7 @@ function init() {
 
 	if(!name) { location.href = "name.html"; }
 	if(!idx) { location.href = "avatar.html"; }
-	debugger;
+	
 	LEVEL = lvl ? parseInt(lvl) : 0;
 
 	document.getElementById("lblName").innerText = name;
@@ -75,6 +75,7 @@ function startGame() {
 			showGameoverLabel();
 			showPercentLabel();
 			showRestartBtn();
+			showBackBtn();
 		}
 
 	} else {
@@ -111,12 +112,26 @@ function showPercentLabel() {
 // Show restart button. It refreshes the page.
 function showRestartBtn() {
 	document.getElementById("divRestart").innerHTML = `<input type="button" 
+																							class="btn btn-success" 
 																							id="btnRestart" 
 																							value="Restart" 
 																							onclick="location.reload()"
-																							style="font-weight: 700; font-size: 36px; line-height: 60px;"/>`;
+																							style="font-weight: 700; font-size: 36px; line-height: 60px; border-radius: 0"/>`;
 }
 
+function showBackBtn() {
+	document.getElementById("divBack").innerHTML = `<input type="button"
+																							class="btn btn-success" 
+																							id="btnBack" 
+																							value="<" 
+																							style="font-weight: 700; font-size: 36px; line-height: 60px; border-radius: 0;"/>`;
+	const elBack = document.getElementById("btnBack");
+	elBack.addEventListener("click", onBackClick);
+}
+
+function onBackClick() {
+	location.href = "name.html"
+}
 // Show game summary. No of correct answer, incorrect answer etc. etc.
 function showSummaryLabel() {
 	document.getElementById("divSummary").innerHTML = '<label style="font-weight: 700; font-size: 18px;">Summary</label><br/>'  
