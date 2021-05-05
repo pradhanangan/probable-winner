@@ -1,4 +1,4 @@
-// var gameboard = (function() {
+var gameboard = (function() {
 
     var elFirst = "divFirst";
     var elOperator = "divOperator";
@@ -16,12 +16,16 @@
                                         maxlength="2" 
                                         style="font-size: 60px; line-height: 72px; font-weight: 700; text-align: center;" 
                                         onkeypress="return event.charCode >= 48 && event.charCode <= 57" 
-                                        placeholder="Type your answer">`;
+                                        placeholder="Type your answer"
+                                        autocomplete="off">`;
+
+    var level = 0;
 
     var operators = ['+', '-', '*', '/']; 
 
-    function board() {
-        switch(LEVEL) {
+    function draw(lvl) {
+        level = lvl;
+        switch(level) {
             case 0:
                 levelZero();
                 break;
@@ -40,7 +44,6 @@
     }
 
     function levelOne() {
-        debugger;
         let first = genRandomNum(0, 19);
         let second = genRandomNum(0, 19);
         let op = genRandomNum(0, 1);
@@ -49,7 +52,7 @@
             // swap
             let temp = first;
             first = second;
-            second = first;
+            second = temp;
         }
         drawBoard(first, operators[op], second);
     }
@@ -69,7 +72,7 @@
 
     function onKeyPressAnswer(e) {
         if(e.key === 'Enter') {
-            if(document.getElementById('txtAnswer').value) {
+            if(document.getElementById(idAnswerFld).value) {
                 var ret = checkAnswer();
                 if(ret) {
                     numCorrectAnswer++;
@@ -80,7 +83,7 @@
                 }
                 if((GAMETIME - timer) <= 1) return;
                 gameCount++;
-                board();
+                draw(level);
             }
         }
     }
@@ -117,8 +120,8 @@
         '-': function (x, y) { return x - y }
     };
 
-//     return {
-//         draw: board,
-//         disableAnswerFld: disableAnswerFld
-//     };
-// })();
+    return {
+        draw: draw,
+        disableAnswerFld: disableAnswerFld
+    };
+})();
