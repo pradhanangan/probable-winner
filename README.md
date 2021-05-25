@@ -1,3 +1,3 @@
 # probable-winner
 
-Addition and subtraction
+Addition and subtraction for children.
