@@ -35,7 +35,7 @@ function init() {
 
 	document.getElementById("lblName").innerText = name;
 	let selectedImage = avatars[idx];
-	document.getElementById("imgProfile").src = "./images/" + selectedImage;
+	document.getElementById("imgProfile").src = "./img/" + selectedImage;
 	
 	startTimer();
 }
