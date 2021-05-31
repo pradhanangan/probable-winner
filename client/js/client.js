@@ -1,6 +1,5 @@
 var sock = io();
 
-
 sock.on('init', handleInit);
 sock.on('timer', handleTimerUpdate);
 sock.on('updateCountdown', handleCountdownUpdate);
@@ -10,6 +9,7 @@ sock.on('gameCode', handleGameCode);
 sock.on('unknownGame', handleUnknownGame);
 sock.on('tooManyPlayers', handleTooManyPlayers);
 sock.on('gameOver', handleGameOver);
+
 sock.on('drawProfile', handleDrawProfile);
 
 const gameScreen = document.getElementById('gameScreen');
@@ -23,7 +23,7 @@ singlePlayerBtn.addEventListener('click', singlePlayer);
 newGameBtn.addEventListener('click', newGame);
 joinGameBtn.addEventListener('click', joinGame);
 
-    var avatars = [
+var avatars = [
     'iconfinder_30.User_290120.png',
     'iconfinder_batman_hero_avatar_comics_4043232.png', 
     'iconfinder_bear_russian_animal_avatar_4043234.png', 
@@ -36,7 +36,8 @@ joinGameBtn.addEventListener('click', joinGame);
     'iconfinder_grandma_elderly_nanny_avatar_4043254.png',
     'iconfinder_indian_woman_hindi_avatar_4043259.png',
     'iconfinder_pilot_traveller_person_avatar_4043277.png',
-    'iconfinder_scientist_einstein_avatar_professor_4043274.png'];
+    'iconfinder_scientist_einstein_avatar_professor_4043274.png'
+];
 
 
 let playerNumber;
@@ -72,7 +73,7 @@ function joinGame() {
 function handleDrawProfile(gameState) {
     console.log("Handle draw profile.");
     console.log(gameState);
-    showScoreBoardMultiple();
+    showScoreBoardMultiple(playerNumber, gameState);
 }
 
 function onKeyPressAnswer(e) {
@@ -87,9 +88,9 @@ function onKeyPressAnswer(e) {
 function handleInit(number, state) {
     console.log('Client handleInit. PlayerNumber: ' + number);
     playerNumber = number;
-    console.log("Handle draw profile.");
-    console.log(state);
-    showScoreBoardMultiple(number, state);
+    // console.log("Handle draw profile.");
+    // console.log(state);
+    // showScoreBoardMultiple(number, state);
 }
 
 function handleDrawBoard(gameState) {
@@ -241,6 +242,7 @@ function showScoreBoardSingle() {
 
 function updateProfileMulti(profileIdx, state) {
     debugger;
+    state = JSON.parse(state);
     console.log('update profile multi');
     console.log(state);
     let profileImage = avatars[state.players[profileIdx].playerImageIdx];

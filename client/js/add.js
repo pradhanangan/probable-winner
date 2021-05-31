@@ -25,13 +25,13 @@ var gameCount = 0;
 
 
 
-function init() {
-	// setGame();
+// function init() {
+// 	// setGame();
 	
-	// startTimer();
+// 	// startTimer();
 
-	gameboard.draw(0);
-}
+// 	gameboard.draw(0);
+// }
 
 // function setGame() {
 

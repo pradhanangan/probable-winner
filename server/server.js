@@ -47,12 +47,13 @@ io.on('connection', (client) => {
         
         state[gameCode].players[1].playerName = playerName;
         state[gameCode].players[1].playerImageIdx = playerImageIdx;
-        // emitDrawProfile(gameCode, state);
+       
 
         client.join(gameCode);
         client.number = 2;
         client.emit('init', 2, state[gameCode]);
 
+        emitDrawProfile(gameCode, state);
         startGameInterval(gameCode);
     }
 
@@ -67,11 +68,12 @@ io.on('connection', (client) => {
         state[roomName].players[0].playerName = playerName;
         state[roomName].players[0].playerImageIdx = playerImageIdx;
 
-        //emitDrawProfile(roomName, state);
+       
         //client.emit('drawProfile', state[roomName]);
         client.join(roomName);
         client.number = 1;
         client.emit('init', 1, state[roomName]);
+        emitDrawProfile(roomName, state);
     }
 
     function handleSinglePlayer() {
