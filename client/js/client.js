@@ -11,6 +11,7 @@ sock.on('tooManyPlayers', handleTooManyPlayers);
 sock.on('gameOver', handleGameOver);
 
 sock.on('drawProfile', handleDrawProfile);
+sock.on('updateScore', handleUpdateScore);
 
 const gameScreen = document.getElementById('gameScreen');
 const initialScreen = document.getElementById('initialScreen');
@@ -96,7 +97,7 @@ function handleInit(number, state) {
 function handleDrawBoard(gameState) {
     console.log("Client handleDrawBoard");
     gameState = JSON.parse(gameState);
-    handleScoreUpdate(gameState);
+    // handleScoreUpdate(gameState);
     
     let playerInd = playerNumber - 1;
     
@@ -136,8 +137,24 @@ function handleScoreUpdate(state) {
         str += ' <span>&#10060;</span><br/>';
     }
 
-    document.getElementById("lblYourScore").innerHTML += str;
+    document.getElementById("lblYourScore" + playerNumber).innerHTML += str;
 }
+
+function handleUpdateScore(playerNum, state) {
+    let playerInd = playerNum - 1;
+    let ind = state.players[playerInd].index - 1;
+    if(ind < 0) return;
+    let gameResult2Append = state.players[playerInd].results[ind];
+    let str = state.players[playerInd].index + ') ' + getQuestionStr(gameResult2Append);
+    if(gameResult2Append.isCorrect) {
+        str += ' <span>&#10004;</span><br/>';
+    } else {
+        str += ' <span>&#10060;</span><br/>';
+    }
+
+    document.getElementById("lblYourScore" + playerNum).innerHTML += str;
+}
+
 
 function getQuestionStr(gameResult2Append) {
     return gameResult2Append.firstVal + ' ' + gameResult2Append.operation + ' ' + gameResult2Append.secondVal + ' = ' + gameResult2Append.answerVal;
@@ -286,8 +303,12 @@ function showScoreBoardMultiple(number, state) {
         </div>
 
         <div class="row">
-            <div class="col result-height" style="overflow-y: auto; text-align: center;">
-                <label id="lblYourScore" style="font-weight: 400; font-size: 18px;">
+            <div class="col-sm-6 result-height" style="overflow-y: auto; text-align: center;">
+                <label id="lblYourScore1" style="font-weight: 400; font-size: 18px;">
+                </label>
+            </div>
+            <div class="col-sm-6 result-height" style="overflow-y: auto; text-align: center;">
+                <label id="lblYourScore2" style="font-weight: 400; font-size: 18px;">
                 </label>
             </div>
         </div>

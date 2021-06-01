@@ -135,6 +135,7 @@ io.on('connection', (client) => {
 
         
         client.emit('drawBoard', JSON.stringify(state[roomName])); 
+        emitScore(client.number, roomName);
     }
 });
 
@@ -189,6 +190,11 @@ function emitDrawProfile(roomName, state) {
     console.log("emitDrawProfiel.............");
     io.sockets.in(roomName)
         .emit('drawProfile', JSON.stringify(state[roomName]));
+}
+
+function emitScore(playerNumber, roomName) {
+    io.sockets.in(roomName)
+        .emit('updateScore', playerNumber, state[roomName]);
 }
 
 function emitGameOver(roomName, state) {
