@@ -4,7 +4,8 @@ module.exports = {
     createGameState,
     gameLoop,
     checkAnswer,
-    levelZero
+    levelZero,
+    findWinner
 }
 
 function createGameState() {
@@ -69,6 +70,12 @@ function checkAnswer(currGame, ans) {
     let sec = currGame.second;
     
     return ans === math_it_up[ops](fst, sec);
+}
+
+function findWinner(state) {
+    let correctRes1 = state.players[0].results.filter(x => x.isCorrect == true).length;
+    let correctRes2 = state.players[1].results.filter(x => x.isCorrect == true).length;
+    console.log("Find winner:  Player1: " + correctRes1 + ", Player2: " + correctRes2);
 }
 
 // https://stackoverflow.com/questions/13077923/how-can-i-convert-a-string-into-a-math-operator-in-javascript

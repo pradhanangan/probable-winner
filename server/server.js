@@ -1,7 +1,7 @@
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
-const { createGameState, gameLoop, checkAnswer, levelZero } = require('./game');
+const { createGameState, gameLoop, checkAnswer, levelZero, findWinner } = require('./game');
 const { makeId } = require('./utils');
 
 const app = express();
@@ -161,7 +161,8 @@ function startGameInterval(roomName) {
             if(end) {
                 console.log("Game over");
                 clearInterval(intervalId);
-                emitGameOver(roomName, state);
+                findWinner(state[roomName]);
+                emitGameOver(roomName);
             }
             
             emitTimer(roomName, state);
@@ -187,7 +188,7 @@ function emitDrawBoard(roomName, state) {
 }
 
 function emitDrawProfile(roomName, state) {
-    console.log("emitDrawProfiel.............");
+    console.log("emitDrawProfile............");
     io.sockets.in(roomName)
         .emit('drawProfile', JSON.stringify(state[roomName]));
 }
@@ -197,7 +198,7 @@ function emitScore(playerNumber, roomName) {
         .emit('updateScore', playerNumber, state[roomName]);
 }
 
-function emitGameOver(roomName, state) {
+function emitGameOver(roomName) {
     io.sockets.in(roomName)
         .emit('gameOver', JSON.stringify(state[roomName]));
 }
