@@ -175,8 +175,8 @@ function handleTooManyPlayers() {
     alert("This game is already in progress.");
 }
 
-function handleGameOver(gameState) {
-    gameState = JSON.parse(gameState);
+function handleGameOver(gameState, winner) {
+    // gameState = JSON.parse(gameState);
     if(gameState.mode === 0) {
         let playerOne = gameState.players[playerNumber -1];
         let correctResults = playerOne.results.filter(r => r.isCorrect);
@@ -190,6 +190,9 @@ function handleGameOver(gameState) {
     // showPercentLabel();
     showRestartBtn();
     showBackBtn();
+    if(winner == playerNumber) { alert("You win"); }
+    else if(winner == 0) {alert("Game was draw");}
+    else {alert("You lose");}
 }
 
 function reset() {

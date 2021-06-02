@@ -161,8 +161,8 @@ function startGameInterval(roomName) {
             if(end) {
                 console.log("Game over");
                 clearInterval(intervalId);
-                findWinner(state[roomName]);
-                emitGameOver(roomName);
+                let winner = findWinner(state[roomName]);
+                emitGameOver(roomName, winner);
             }
             
             emitTimer(roomName, state);
@@ -198,7 +198,7 @@ function emitScore(playerNumber, roomName) {
         .emit('updateScore', playerNumber, state[roomName]);
 }
 
-function emitGameOver(roomName) {
+function emitGameOver(roomName, winner) {
     io.sockets.in(roomName)
-        .emit('gameOver', JSON.stringify(state[roomName]));
+        .emit('gameOver', state[roomName], winner);
 }
