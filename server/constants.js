@@ -1,4 +1,4 @@
-const GAMETIME = 30;
+const GAMETIME = 10;
 const LEADTIME = 3;
 const NUMBER_OF_GAMES = 60;
 const SINGLE_MODE = 0;

@@ -155,7 +155,6 @@ function handleUpdateScore(playerNum, state) {
     document.getElementById("lblYourScore" + playerNum).innerHTML += str;
 }
 
-
 function getQuestionStr(gameResult2Append) {
     return gameResult2Append.firstVal + ' ' + gameResult2Append.operation + ' ' + gameResult2Append.secondVal + ' = ' + gameResult2Append.answerVal;
 }
@@ -187,12 +186,11 @@ function handleGameOver(gameState, winner) {
 
     gameboard.disableAnswerFld();
     showGameoverLabel();
+    showWinnerLabel(winner);
     // showPercentLabel();
     showRestartBtn();
     showBackBtn();
-    if(winner == playerNumber) { alert("You win"); }
-    else if(winner == 0) {alert("Game was draw");}
-    else {alert("You lose");}
+   
 }
 
 function reset() {
@@ -321,5 +319,24 @@ function showScoreBoardMultiple(number, state) {
     updateProfileMulti(0, state);
     updateProfileMulti(1, state);
 }
+
+function showWinnerLabel(winner) {
+    let content = "";
+    
+    if(winner == playerNumber) { 
+        content = "You win.";
+    } 
+    else if(winner == 0) {
+        content = "It's a draw.";
+    } 
+    else {
+        content = "You lose.";
+    }
+
+	document.getElementById("divWinner").innerHTML = `<label style="font-weight: 700; font-size: 36px; line-height: 72px;">${content}</label>`;
+}
+
+
+
 
 init();
