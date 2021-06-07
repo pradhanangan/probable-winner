@@ -40,13 +40,12 @@ var avatars = [
     'iconfinder_scientist_einstein_avatar_professor_4043274.png'
 ];
 
-
-let playerNumber;
-
 let playerName;
 let playerImageIdx;
 let selectedLevel;
 let selectedMode;
+
+let playerNumber;
 
 function gameInit() {
     initialScreen.style.display = "none";
@@ -71,12 +70,6 @@ function joinGame() {
     gameInit();
 }
 
-function handleDrawProfile(gameState) {
-    console.log("Handle draw profile.");
-    console.log(gameState);
-    showScoreBoardMultiple(playerNumber, gameState);
-}
-
 function onKeyPressAnswer(e) {
     if(e.key === 'Enter') {
         if(document.getElementById('txtAnswer').value) { 
@@ -86,43 +79,38 @@ function onKeyPressAnswer(e) {
     }   
 }
 
+function handleDrawProfile(gameState) {
+    console.log("Handle draw profile.");
+    console.log(gameState);
+    showScoreBoardMultiple(playerNumber, gameState);
+}
+
 function handleInit(number, state) {
-    console.log('Client handleInit. PlayerNumber: ' + number);
     playerNumber = number;
-    // console.log("Handle draw profile.");
-    // console.log(state);
-    // showScoreBoardMultiple(number, state);
 }
 
 function handleDrawBoard(gameState) {
-    console.log("Client handleDrawBoard");
-    gameState = JSON.parse(gameState);
-    // handleScoreUpdate(gameState);
-    
     let playerInd = playerNumber - 1;
-    
-    console.log(gameState);
-    console.log(playerInd);
-    const yourGame = gameState.games[gameState.players[playerInd].index];
-    gameboard.drawBoard(yourGame.first, yourGame.operator, yourGame.second);
+    let playerGme = gameState.games[gameState.players[playerInd].index];
+    gameboard.drawBoard(playerGme.first, playerGme.operator, playerGme.second);
 }
 
 function handleCountdownUpdate(countdown) {    
-    console.log("Client handleCoutdownUpdate. Countdown: " + countdown);
- 	document.getElementById("lblCountdown").innerText = JSON.parse(countdown); 
+    document.getElementById("lblCountdown").innerHTML = countdown; 
 }
 
-function handleTimerUpdate(state) {
-    state = JSON.parse(state);
-    if(parseInt(state.timer) === 1) {
+function handleTimerUpdate(gameState) {
+    if(gameState.timer === 1) {
         // Remove countdown row.
         let el = document.getElementById("rowCountdown")
         if(el) {
             el.remove();
         }
+
+        handleDrawBoard(gameState);
     }
     document.getElementById("divTimer").innerHTML = '<label id="lblTimer" style="font-weight: 700; font-size: 60px; line-height: 72px;">' 
-    + state.timer + '</label>';
+    + gameState.timer + '</label>';
 }
 
 function handleScoreUpdate(state) {
@@ -137,7 +125,7 @@ function handleScoreUpdate(state) {
         str += ' <span>&#10060;</span><br/>';
     }
 
-    document.getElementById("lblYourScore" + playerNumber).innerHTML += str;
+    document.getElementById("lblScore" + playerNumber).innerHTML += str;
 }
 
 function handleUpdateScore(playerNum, state) {
@@ -152,7 +140,7 @@ function handleUpdateScore(playerNum, state) {
         str += ' <span>&#10060;</span><br/>';
     }
 
-    document.getElementById("lblYourScore" + playerNum).innerHTML += str;
+    document.getElementById("lblScore" + playerNum).innerHTML += str;
 }
 
 function getQuestionStr(gameResult2Append) {
@@ -211,7 +199,7 @@ function updateProfile(profileIdx) {
     document.getElementById("lblName" + profileIdx).innerHTML = playerName;
 }
 
-function init() {
+function initPage() {
     let name = sessionStorage.getItem("UserName");
     let idx = sessionStorage.getItem("UserImageIndex");
     let level = sessionStorage.getItem("Level");
@@ -247,7 +235,7 @@ function showScoreBoardSingle() {
 
 <div class="row">
     <div class="col result-height" style="overflow-y: auto; text-align: center;">
-            <label id="lblYourScore" style="font-weight: 400; font-size: 18px;">
+            <label id="lblScore1" style="font-weight: 400; font-size: 18px;">
             </label>
     </div>
 </div>`
@@ -304,11 +292,11 @@ function showScoreBoardMultiple(number, state) {
 
         <div class="row">
             <div class="col-sm-6 result-height" style="overflow-y: auto; text-align: center;">
-                <label id="lblYourScore1" style="font-weight: 400; font-size: 18px;">
+                <label id="lblScore1" style="font-weight: 400; font-size: 18px;">
                 </label>
             </div>
             <div class="col-sm-6 result-height" style="overflow-y: auto; text-align: center;">
-                <label id="lblYourScore2" style="font-weight: 400; font-size: 18px;">
+                <label id="lblScore2" style="font-weight: 400; font-size: 18px;">
                 </label>
             </div>
         </div>
@@ -335,4 +323,4 @@ function showWinnerLabel(winner) {
 	document.getElementById("divWinner").innerHTML = `<label style="font-weight: 700; font-size: 36px; line-height: 72px;">${content}</label>`;
 }
 
-init();
+initPage();

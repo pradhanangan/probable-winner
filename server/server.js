@@ -134,7 +134,7 @@ io.on('connection', (client) => {
         }
 
         
-        client.emit('drawBoard', JSON.stringify(state[roomName])); 
+        client.emit('drawBoard', state[roomName]); 
         emitScore(client.number, roomName);
     }
 });
@@ -151,35 +151,32 @@ function startGameInterval(roomName) {
     const intervalId = setInterval(() => {
         if(state[roomName].countdown < 0) {
             state[roomName].timer++;
-            if(state[roomName].timer === 1) {
-                // emitGameState(roomName, state[roomName]);
-                emitDrawBoard(roomName, state);
-                
-                // client.emit('drawBoard', JSON.stringify(state)); 
-            }
+            
             const end = gameLoop(state[roomName]);
             if(end) {
                 console.log("Game over");
                 clearInterval(intervalId);
-                let winner = findWinner(state[roomName]);
+                const winner = findWinner(state[roomName]);
                 emitGameOver(roomName, winner);
             }
             
-            emitTimer(roomName, state);
+            emitTimer(roomName);
             
         } else {
-            console.log("Countdown: " + state[roomName].countdown);
-            io.sockets.in(roomName)
-        .emit('updateCountdown', JSON.stringify(state[roomName].countdown));
-            // client.emit('updateCountdown', state.countdown);
+            emitCountdown(roomName);
             state[roomName].countdown--;
         }
     }, 1000);
 }
 
-function emitTimer(roomName, state) {
+function emitCountdown(roomName) {
     io.sockets.in(roomName)
-        .emit('timer', JSON.stringify(state[roomName]));
+        .emit('updateCountdown', state[roomName].countdown);
+}
+
+function emitTimer(roomName) {
+    io.sockets.in(roomName)
+        .emit('timer', state[roomName]);
 }
 
 function emitDrawBoard(roomName, state) {
