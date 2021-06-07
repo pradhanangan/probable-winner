@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<title>Matty's World</title>
+  <link rel="icon" href="data:,">
   <link href="css/bootstrap.css" rel="stylesheet">
 	<style>
 		html, body {
@@ -13,6 +14,7 @@
 	</style>
 </head>
 <body>
+  
 	<div class="container main">
     <div class="row h-100">
       <div class="col-lg-12 my-auto">
@@ -26,7 +28,7 @@
                 <input type="text"
                             id="txtName" 
                             placeholder="Enter your name" 
-                            onkeyup="onKeyUpTxtName()"
+                            onkeyup="namejs.onKeyUpTxtName()"
                             style="outline: 0; border-width: 0 0 3px; font-weight: 700; font-size: 36px; line-height: 36px;" />
               </div>
             </div>
@@ -45,28 +47,28 @@
 
             <div class="row">
               <div class="col-sm-3">
-                <div class="image" style="height: 80px; width: 80px;" onclick="selectAvatar(1)">
+                <div class="image" style="height: 80px; width: 80px;" onclick="namejs.selectAvatar(1)">
                   <a href="#">
                     <img src="./img/iconfinder_batman_hero_avatar_comics_4043232.png" style="height:100%; width:100%">
                   </a>
                 </div>
               </div>
               <div class="col-sm-3">
-                <div style="height: 80px; width: 80px;" onclick="selectAvatar(2)">
+                <div style="height: 80px; width: 80px;" onclick="namejs.selectAvatar(2)">
                   <a href="#">
                     <img src="./img/iconfinder_bear_russian_animal_avatar_4043234.png" style="height:100%; width:100%">
                   </a>
                 </div>
               </div>
               <div class="col-sm-3">
-                <div style="height: 80px; width: 80px;" onclick="selectAvatar(3)">
+                <div style="height: 80px; width: 80px;" onclick="namejs.selectAvatar(3)">
                   <a href="#">
                     <img src="./img/iconfinder_boy_person_avatar_kid_4043238.png" style="height:100%; width:100%">
                   </a>
                 </div>
               </div>
               <div class="col-sm-3">
-                <div style="height: 80px; width: 80px;" onclick="selectAvatar(4)">
+                <div style="height: 80px; width: 80px;" onclick="namejs.selectAvatar(4)">
                   <a href="#">
                     <img src="./img/iconfinder_cactus_cacti_avatar_pirate_4043242.png" style="height:100%; width:100%">
                   </a>
@@ -75,30 +77,29 @@
             </div>
             
             <div class="row">
-              
               <div class="col-sm-3">
-                <div style="height: 80px; width: 80px;" onclick="selectAvatar(5)">
+                <div style="height: 80px; width: 80px;" onclick="namejs.selectAvatar(5)">
                   <a href="#">
                     <img src="./img/iconfinder_coffee_zorro_avatar_cup_4043245.png" style="height:100%; width:100%">
                   </a>
                 </div>
               </div>
               <div class="col-sm-3">
-                <div style="height: 80px; width: 80px;" onclick="selectAvatar(6)">
+                <div style="height: 80px; width: 80px;" onclick="namejs.selectAvatar(6)">
                   <a href="#">
                     <img src="./img/iconfinder_geisha_japanese_woman_avatar_4043249.png" style="height:100%; width:100%">
                   </a>
                 </div>
               </div>
               <div class="col-sm-3">
-                <div style="height: 80px; width: 80px;" onclick="selectAvatar(7)">
+                <div style="height: 80px; width: 80px;" onclick="namejs.selectAvatar(7)">
                   <a href="#">
                     <img src="./img/iconfinder_girl_avatar_child_kid_4043250.png" style="height:100%; width:100%">
                   </a>
                 </div>
               </div>
               <div class="col-sm-3">
-                <div style="height: 80px; width: 80px;" onclick="selectAvatar(8)">
+                <div style="height: 80px; width: 80px;" onclick="namejs.selectAvatar(8)">
                   <a href="#">
                     <img src="./img/iconfinder_girl_female_woman_avatar_4043251.png" style="height:100%; width:100%">
                   </a>
@@ -107,30 +108,29 @@
             </div>
     
             <div class="row">
-              
               <div class="col-sm-3">
-                <div style="height: 80px; width: 80px;" onclick="selectAvatar(9)">
+                <div style="height: 80px; width: 80px;" onclick="namejs.selectAvatar(9)">
                   <a href="#">
                     <img src="./img/iconfinder_grandma_elderly_nanny_avatar_4043254.png" style="height:100%; width:100%">
                   </a>
                 </div>
               </div>
               <div class="col-sm-3">
-                <div style="height: 80px; width: 80px;" onclick="selectAvatar(10)">
+                <div style="height: 80px; width: 80px;" onclick="namejs.selectAvatar(10)">
                   <a href="#">
                     <img src="./img/iconfinder_indian_woman_hindi_avatar_4043259.png" style="height:100%; width:100%">
                   </a>
                 </div>
               </div>
               <div class="col-sm-3">
-                <div style="height: 80px; width: 80px;" onclick="selectAvatar(11)">
+                <div style="height: 80px; width: 80px;" onclick="namejs.selectAvatar(11)">
                   <a href="#">
                     <img src="./img/iconfinder_pilot_traveller_person_avatar_4043277.png" style="height:100%; width:100%">
                   </a>
                 </div>
               </div>
               <div class="col-sm-3">
-                <div style="height: 80px; width: 80px;" onclick="selectAvatar(12)">
+                <div style="height: 80px; width: 80px;" onclick="namejs.selectAvatar(12)">
                   <a href="#">
                     <img src="./img/iconfinder_scientist_einstein_avatar_professor_4043274.png" style="height:100%; width:100%">
                   </a>
@@ -139,6 +139,7 @@
             </div>
 
             <br/>
+
             <div class="row">
               <div class="col">
                 
@@ -148,13 +149,15 @@
         
               </div>
             </div>
+
             <div class="row">
               <div class="col">
+
                 <button
                 id="btnLevel0" 
                 class="btn"  
                 style="font-weight: 700; font-size: 24px; line-height: 36px; display: inline-block; vertical-align: middle; border-radius: 0; border: 1px solid black;"
-                onclick="selectLevel(0)">
+                onclick="namejs.selectLevel(0)">
                 level 0
               </button>
 
@@ -162,43 +165,17 @@
                 id="btnLevel1" 
                 class="btn" 
                 style="margin-left: 15px; font-weight: 700; font-size: 24px; line-height: 36px;   display: inline-block; vertical-align: middle; border-radius: 0; border: 1px solid black;"
-                onclick="selectLevel(1)">
+                onclick="namejs.selectLevel(1)">
                 level 1
               </button>
-              </div>
-            </div>
-    <br/>
-            <div class="row">
-              <div class="col">
-                
-                <label style="font-weight: 700; font-size: 36px; line-height: 36px; display: inline-block; vertical-align: middle;">
-                  Select Mode
-                </label>
-        
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <button
-                id="btnMode0" 
-                class="btn"  
-                style="font-weight: 700; font-size: 24px; line-height: 36px; display: inline-block; vertical-align: middle; border-radius: 0; border: 1px solid black;"
-                onclick="selectMode(0)">
-                single player
-              </button>
 
-              <button
-                id="btnMode1" 
-                class="btn" 
-                style="margin-left: 15px; font-weight: 700; font-size: 24px; line-height: 36px;   display: inline-block; vertical-align: middle; border-radius: 0; border: 1px solid black;"
-                onclick="selectMode(1)">
-                multiple player
-              </button>
               </div>
             </div>
+
           </div>
     
           <div class="col-lg-6">
+
             <div class="row">
               <div class="col-lg-12">
                 <label style="font-weight: 600; font-size: 24px;">
@@ -206,6 +183,7 @@
                 </label>
               </div>
             </div>
+
             <div class="row">
               <div class="col-lg-3">
                 <div style="height: 80px; width: 80px;">
@@ -217,7 +195,9 @@
               <div class="col-lg-4 my-auto" id="divName" style="font-weight: 500; font-size: 20px; line-height: 36px;">
               </div>
             </div>
+
             <br/>
+
             <div class="row">
               <div class="col">
                 <label style="font-weight: 600; font-size: 24px;">
@@ -225,28 +205,28 @@
                 </label>
               </div>
             </div>
+
             <div class="row">
               <div class="col my-auto" id="divLevel" style="margin-left: 15px; font-weight: 500; font-size: 20px; line-height: 36px;">
               </div>
             </div>
-            <div class="row">
-              <div class="col my-auto" id="divMode" style="margin-left: 15px; font-weight: 500; font-size: 20px; line-height: 36px;">
-              </div>
-            </div>
+
             <hr/>
+
             <div class="row">
               <div class="col-lg-7" style="text-align: right;" >
+
                 <button 
                   class="btn btn-success" 
                   style="font-weight: 700; font-size:24px; display: inline-block; vertical-align: middle; border-radius: 0;"
-                  onclick="prev()">
+                  onclick="namejs.prev()">
                   &lt;
                 </button>
                 
                 <button 
                 class="btn btn-success" 
                 style="margin-left: 15px; font-weight: 700; font-size:24px; display: inline-block; vertical-align: middle; border-radius: 0;"
-                onclick="clearAll()">
+                onclick="namejs.clearAll()">
                 clear
               </button>
          
@@ -254,11 +234,9 @@
                 <button 
                   class="btn btn-success" 
                   style="margin-left: 15px; font-weight: 700; font-size:24px; display: inline-block; vertical-align: middle; border-radius: 0;"
-                  onclick="next()">
+                  onclick="namejs.next()">
                   &gt;
                 </button>
-
-
                 
               </div>
             </div>
@@ -275,114 +253,96 @@
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script>
-
-    var avatars = ['iconfinder_30.User_290120.png',
-      'iconfinder_batman_hero_avatar_comics_4043232.png', 
-      'iconfinder_bear_russian_animal_avatar_4043234.png', 
-      'iconfinder_boy_person_avatar_kid_4043238.png', 
-      'iconfinder_cactus_cacti_avatar_pirate_4043242.png',
-      'iconfinder_coffee_zorro_avatar_cup_4043245.png',
-      'iconfinder_geisha_japanese_woman_avatar_4043249.png',
-      'iconfinder_girl_avatar_child_kid_4043250.png',
-      'iconfinder_girl_female_woman_avatar_4043251.png',
-      'iconfinder_grandma_elderly_nanny_avatar_4043254.png',
-      'iconfinder_indian_woman_hindi_avatar_4043259.png',
-      'iconfinder_pilot_traveller_person_avatar_4043277.png',
-      'iconfinder_scientist_einstein_avatar_professor_4043274.png'];
-    
-    var selectedImageIdx = 0;
-    var NUMLEVEL = 2;
-    var selectedLevel = 0;
-    
-    var NUMMODE = 2;
-    const SINGLEPLAYER = 0;
-    const MULTIPLEPLAYER = 1;
-    var selectedMode = 0;
-    
-    function onKeyUpTxtName() {
-      var name = document.getElementById("txtName").value;
-      document.getElementById("divName").innerHTML = name;
-      localStorage.setItem("UserName", name);
-    }
-
-    function selectAvatar(index) {
-      selectedImageIdx = index;
-      let selectedImage = avatars[index];
-      document.getElementById("imgProfile").src = "./img/" + selectedImage;
-      localStorage.setItem("UserImageIndex", selectedImageIdx);
-    }
-
-    function prev() {
-      location.href = "index.html";
-    }
-
-    function next() {
-      let name = localStorage.getItem("UserName");
-	    let idx = localStorage.getItem("UserImageIndex");
-      if(!name || (idx && idx === -1)) return;
-      location.href = "game.html";
-    }
-
-    function clearAll() {
-      localStorage.clear();
-      selectedImageIdx = -1;
-      document.getElementById("txtName").value = "";
-      document.getElementById("divName").innerHTML = "";
-      document.getElementById("imgProfile").src = "./img/iconfinder_30.User_290120.png";
-
-      selectLevel(0);
-      selectMode(0);
-    }
-
-    function selectLevel(idx) {
-      selectedLevel = idx;
-      localStorage.setItem("Level", idx);
-      for(i = 0; i < NUMLEVEL; i++) {
-        if(i === idx) {
-          document.getElementById("divLevel").innerHTML = "Level: " + selectedLevel;
-          if(!document.getElementById("btnLevel" + i).classList.contains('btn-danger'))
-	          document.getElementById("btnLevel" + i).classList.add('btn-danger');
-        } else {
-          document.getElementById("btnLevel" + i).classList.remove('btn-danger');
+    var namejs = (function() {
+        var avatars = [
+          'iconfinder_30.User_290120.png',
+          'iconfinder_batman_hero_avatar_comics_4043232.png', 
+          'iconfinder_bear_russian_animal_avatar_4043234.png', 
+          'iconfinder_boy_person_avatar_kid_4043238.png', 
+          'iconfinder_cactus_cacti_avatar_pirate_4043242.png',
+          'iconfinder_coffee_zorro_avatar_cup_4043245.png',
+          'iconfinder_geisha_japanese_woman_avatar_4043249.png',
+          'iconfinder_girl_avatar_child_kid_4043250.png',
+          'iconfinder_girl_female_woman_avatar_4043251.png',
+          'iconfinder_grandma_elderly_nanny_avatar_4043254.png',
+          'iconfinder_indian_woman_hindi_avatar_4043259.png',
+          'iconfinder_pilot_traveller_person_avatar_4043277.png',
+          'iconfinder_scientist_einstein_avatar_professor_4043274.png'];
+        
+        var NUMLEVEL = 2;
+        
+        function onKeyUpTxtName() {
+          var name = document.getElementById("txtName").value;
+          document.getElementById("divName").innerHTML = name;
+          sessionStorage.setItem("UserName", name);
         }
-      }
-    }
 
-    function selectMode(idx) {
-      selectedMode = idx;
-      localStorage.setItem("Mode", idx);
-      for(i = 0; i < NUMMODE; i++) {
-        if(i === idx) {
-          let selectedModeToString = selectedMode == 1 ? "Multiple Player" : "Single Player";
-          document.getElementById("divMode").innerHTML = "Mode: " + selectedModeToString;
-          if(!document.getElementById("btnMode" + i).classList.contains('btn-danger'))
-	          document.getElementById("btnMode" + i).classList.add('btn-danger');
-        } else {
-          document.getElementById("btnMode" + i).classList.remove('btn-danger');
+        function selectAvatar(index) {
+          let selectedImage = avatars[index];
+          document.getElementById("imgProfile").src = "./img/" + selectedImage;
+          sessionStorage.setItem("UserImageIndex", index);
         }
-      }
-    }
 
-    function init() {
-      let name = localStorage.getItem("UserName");
-	    let idx = localStorage.getItem("UserImageIndex");
-      let level = localStorage.getItem("Level");
-      let mode = localStorage.getItem("Mode");
-      if(name) {
-        document.getElementById("txtName").value = name;
-        document.getElementById("divName").innerHTML = name
-      }
-      if(idx && idx != -1) {
-        selectAvatar(idx);
-      }
-      selectedLevel = level ? parseInt(level) : 0;
-      selectLevel(selectedLevel);
+        function prev() {
+          location.href = "index.html";
+        }
 
-      selectedMode = mode ? parseInt(mode) : 0;
-      selectMode(selectedMode);
-    }
+        function next() {
+          let name = sessionStorage.getItem("UserName");
+          let idx = sessionStorage.getItem("UserImageIndex")
+          debugger;
+          if(!(name && idx)) return;
+          location.href = "game.html";
+        }
 
-    init();
+        function clearAll() {
+          sessionStorage.clear();
+          document.getElementById("txtName").value = "";
+          document.getElementById("divName").innerHTML = "";
+          document.getElementById("imgProfile").src = "./img/iconfinder_30.User_290120.png";
+
+          selectLevel(0);
+        }
+
+        function selectLevel(idx) {
+          sessionStorage.setItem("Level", idx);
+          for(i = 0; i < NUMLEVEL; i++) {
+            if(i === idx) {
+              document.getElementById("divLevel").innerHTML = "Level: " + idx;
+              if(!document.getElementById("btnLevel" + i).classList.contains('btn-danger'))
+                document.getElementById("btnLevel" + i).classList.add('btn-danger');
+            } else {
+              document.getElementById("btnLevel" + i).classList.remove('btn-danger');
+            }
+          }
+        }
+
+        function init() {
+          let name = sessionStorage.getItem("UserName");
+          let idx = sessionStorage.getItem("UserImageIndex");
+          let level = sessionStorage.getItem("Level");
+          if(name) {
+            document.getElementById("txtName").value = name;
+            document.getElementById("divName").innerHTML = name
+          }
+          if(idx && idx != -1) {
+            selectAvatar(idx);
+          }
+          level = level ? parseInt(level) : 0;
+          selectLevel(level);
+        }
+
+        init();
+
+        return {
+          onKeyUpTxtName: onKeyUpTxtName,
+          selectAvatar: selectAvatar,
+          selectLevel: selectLevel,
+          prev: prev,
+          next: next,
+          clearAll: clearAll
+        };
+      })();
   </script>
 </body>
 </html>

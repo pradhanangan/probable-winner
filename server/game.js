@@ -11,14 +11,12 @@ module.exports = {
 function createGameState() {
     let gameState = {
         players: [{
-            
             playerName: "",
             playerImageIdx: 0,
             index: 0,
             results:[]
         },
         {
-            
             playerName: "",
             playerImageIdx: 0,
             index: 0,

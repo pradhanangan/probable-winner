@@ -212,10 +212,9 @@ function updateProfile(profileIdx) {
 }
 
 function init() {
-    let name = localStorage.getItem("UserName");
-    let idx = localStorage.getItem("UserImageIndex");
-    let level = localStorage.getItem("Level");
-    let mode = localStorage.getItem("Mode");
+    let name = sessionStorage.getItem("UserName");
+    let idx = sessionStorage.getItem("UserImageIndex");
+    let level = sessionStorage.getItem("Level");
 
     if(!name && !idx) {
         location.href = "name.html"; 
@@ -324,19 +323,16 @@ function showWinnerLabel(winner) {
     let content = "";
     
     if(winner == playerNumber) { 
-        content = "You win.";
+        content = "You Win";
     } 
     else if(winner == 0) {
-        content = "It's a draw.";
+        content = "It's a Draw";
     } 
     else {
-        content = "You lose.";
+        content = "You Lose";
     }
 
 	document.getElementById("divWinner").innerHTML = `<label style="font-weight: 700; font-size: 36px; line-height: 72px;">${content}</label>`;
 }
-
-
-
 
 init();
