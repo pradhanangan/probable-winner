@@ -163,22 +163,21 @@ function handleTooManyPlayers() {
 }
 
 function handleGameOver(gameState, winner) {
-    // gameState = JSON.parse(gameState);
-    if(gameState.mode === 0) {
+    if(gameState.mode === 0) { // Single player mode
         let playerOne = gameState.players[playerNumber -1];
         let correctResults = playerOne.results.filter(r => r.isCorrect);
         let numCorrectAnswer = correctResults.length;
         let numQuestions = playerOne.results.length;
-        showPercentLabel(numCorrectAnswer, numQuestions);
+        showCorrectLabel(numCorrectAnswer);
+        // showPercentLabel(numCorrectAnswer, numQuestions);
+    } else { // Multi player mode
+        showWinnerLabel(winner);
     }
 
     gameboard.disableAnswerFld();
     showGameoverLabel();
-    showWinnerLabel(winner);
-    // showPercentLabel();
     showRestartBtn();
     showBackBtn();
-   
 }
 
 function reset() {
@@ -191,6 +190,11 @@ function reset() {
 function showPercentLabel(numCorrectAnswer, gameCount) {
 	document.getElementById("divPercent").innerHTML = '<label style="font-weight: 700; font-size: 48px; line-height: 72px;">' 
 		+ Math.round((numCorrectAnswer/gameCount) * 100) + '% Correct</label>';
+}
+
+function showCorrectLabel(numCorrectAnswer) {
+    document.getElementById("divCorrect").innerHTML = '<label style="font-weight: 700; font-size: 36px; line-height: 72px;">' 
+		+ numCorrectAnswer + ' Correct</label>';
 }
 
 function updateProfile(profileIdx) {
@@ -246,7 +250,6 @@ function showScoreBoardSingle() {
 }
 
 function updateProfileMulti(profileIdx, state) {
-    debugger;
     state = JSON.parse(state);
     console.log('update profile multi');
     console.log(state);

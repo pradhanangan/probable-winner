@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
+const { MULTIPLE_MODE } = require('./constants');
 const { createGameState, gameLoop, checkAnswer, levelZero, findWinner } = require('./game');
 const { makeId } = require('./utils');
 
@@ -65,6 +66,7 @@ io.on('connection', (client) => {
         client.emit('gameCode', roomName);
         
         state[roomName] = createGameState();
+        state[roomName].mode = MULTIPLE_MODE;
         state[roomName].players[0].playerName = playerName;
         state[roomName].players[0].playerImageIdx = playerImageIdx;
 
