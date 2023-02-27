@@ -56,7 +56,8 @@ function singlePlayer() {
     sock.emit('singlePlayer');
     gameInit();
     document.getElementById("rowGamecode").style.display="none";
-    showScoreBoardSingle();
+    showScoreBoardForSingleMode();
+    updateProfile(1);
 }
 
 function newGame() {
@@ -80,12 +81,11 @@ function onKeyPressAnswer(e) {
 }
 
 function handleDrawProfile(gameState) {
-    console.log("Handle draw profile.");
-    console.log(gameState);
-    showScoreBoardMultiple(playerNumber, gameState);
+    showScoreBoardForMultiMode();
+    updateProfileForMultiMode(gameState);
 }
 
-function handleInit(number, state) {
+function handleInit(number) {
     playerNumber = number;
 }
 
@@ -163,44 +163,25 @@ function handleTooManyPlayers() {
 }
 
 function handleGameOver(gameState, winner) {
-    if(gameState.mode === 0) { // Single player mode
-        let playerOne = gameState.players[playerNumber -1];
-        let correctResults = playerOne.results.filter(r => r.isCorrect);
-        let numCorrectAnswer = correctResults.length;
-        let numQuestions = playerOne.results.length;
-        showCorrectLabel(numCorrectAnswer);
-        // showPercentLabel(numCorrectAnswer, numQuestions);
-    } else { // Multi player mode
-        showWinnerLabel(winner);
-    }
-
     gameboard.disableAnswerFld();
     showGameoverLabel();
     showRestartBtn();
     showBackBtn();
+
+    let playerOne = gameState.players[playerNumber -1];
+    let correctResults = playerOne.results.filter(r => r.isCorrect);
+    let numCorrectAnswer = correctResults.length;
+    showCorrectLabel(numCorrectAnswer);
+    
+    if(gameState.mode === 1) { // Multi player mode
+        showWinnerLabel(winner);
+    }
 }
 
 function reset() {
     playerNumber = null;
     gameCodeInput.value = "";
     gameCodeDisplay.innerText = "";
-}
-
-// Show percent correct answer
-function showPercentLabel(numCorrectAnswer, gameCount) {
-	document.getElementById("divPercent").innerHTML = '<label style="font-weight: 700; font-size: 48px; line-height: 72px;">' 
-		+ Math.round((numCorrectAnswer/gameCount) * 100) + '% Correct</label>';
-}
-
-function showCorrectLabel(numCorrectAnswer) {
-    document.getElementById("divCorrect").innerHTML = '<label style="font-weight: 700; font-size: 36px; line-height: 72px;">' 
-		+ numCorrectAnswer + ' Correct</label>';
-}
-
-function updateProfile(profileIdx) {
-    let profileImage = avatars[playerImageIdx];
-    document.getElementById("imgProfile" + profileIdx).src = "./img/" + profileImage;
-    document.getElementById("lblName" + profileIdx).innerHTML = playerName;
 }
 
 function initPage() {
@@ -219,95 +200,113 @@ function initPage() {
     updateProfile(0);
 }
 
-function showScoreBoardSingle() {
-    let el = `<div class="row">
-    <div class="col" style="text-align: center;">
-        
-        <div style="height: 80px; width: 80px; display:inline-block;">
-            <a href="#">
-                <img id="imgProfile1" src="./img/iconfinder_30.User_290120.png" style="height:100%; width:100%;" >
-            </a>
-        </div>
-    
-        <div style="display:inline-block;">
-            <label id="lblName1" style="font-weight: 600; font-size: 24px; line-height: 36px;">
-            </label>
+function showScoreBoardForSingleMode() {
+    let el = `
+    <div class="row">
+        <div class="col" style="text-align: center;">
+            <div style="height: 80px; width: 80px; display:inline-block;">
+                <a href="#">
+                    <img id="imgProfile1" src="./img/iconfinder_30.User_290120.png" style="height:100%; width:100%;" >
+                </a>
+            </div>
+            <div style="display:inline-block;">
+                <label id="lblName1" style="font-weight: 600; font-size: 24px; line-height: 36px;">
+                </label>
+            </div>
         </div>
     </div>
 
-</div>
-
-<div class="row">
-    <div class="col result-height" style="overflow-y: auto; text-align: center;">
+    <div class="row">
+        <div class="col result-height" style="overflow-y: auto; text-align: center;">
             <label id="lblScore1" style="font-weight: 400; font-size: 18px;">
             </label>
-    </div>
-</div>`
+        </div>
+    </div>`
 
     document.getElementById("divScore").innerHTML = el;
-
-    updateProfile(1);
 }
 
-function updateProfileMulti(profileIdx, state) {
-    state = JSON.parse(state);
-    console.log('update profile multi');
-    console.log(state);
-    let profileImage = avatars[state.players[profileIdx].playerImageIdx];
-    document.getElementById("imgProfile" + (profileIdx +1)).src = "./img/" + profileImage;
-    document.getElementById("lblName" + (profileIdx+1)).innerHTML = state.players[profileIdx].playerName;
+function updateProfile(profileIdx) {
+    let profileImage = avatars[playerImageIdx];
+    document.getElementById("imgProfile" + profileIdx).src = "./img/" + profileImage;
+    document.getElementById("lblName" + profileIdx).innerHTML = playerName;
 }
 
-function showScoreBoardMultiple(number, state) {
+function showScoreBoardForMultiMode() {
     let el = `
-        <div class="row">
-            <div class="col-sm-6" style="text-align: center;">
-            
-                <div style="height: 80px; width: 80px; display:inline-block;">
-                    <a href="#">
-                        <img id="imgProfile1" src="./img/iconfinder_30.User_290120.png" style="height:100%; width:100%;" >
-                    </a>
-                </div>
-        
-                <div style="display:inline-block;">
-                    <label id="lblName1" style="font-weight: 600; font-size: 24px; line-height: 36px;">
-                    </label>
-                </div>
-            
+    <div class="row">
+        <div class="col-sm-6" style="text-align: center;">
+            <div style="height: 80px; width: 80px; display:inline-block;">
+                <a href="#">
+                    <img id="imgProfile1" src="./img/iconfinder_30.User_290120.png" style="height:100%; width:100%;" >
+                </a>
             </div>
+            <div style="display:inline-block;">
+                <label id="lblName1" style="font-weight: 600; font-size: 24px; line-height: 36px;">
+                </label>
+            </div>
+        </div>
 
-            <div class="col-sm-6" style="text-align: center;">
-            
+        <div class="col-sm-6" style="text-align: center;">
             <div style="height: 80px; width: 80px; display:inline-block;">
                 <a href="#">
                     <img id="imgProfile2" src="./img/iconfinder_30.User_290120.png" style="height:100%; width:100%;" >
                 </a>
             </div>
-    
             <div style="display:inline-block;">
                 <label id="lblName2" style="font-weight: 600; font-size: 24px; line-height: 36px;">
                 </label>
             </div>
+        </div>
+    </div>
+
+    <div class="row">    
+        <div class="col-sm-6 result-height" style="overflow-y: auto; text-align: center;">
+            <label id="lblScore1" style="font-weight: 400; font-size: 18px;">
+            </label>
+        </div>
         
+        <div class="col-sm-6 result-height" style="overflow-y: auto; text-align: center;">
+            <label id="lblScore2" style="font-weight: 400; font-size: 18px;">
+            </label>
         </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-sm-6 result-height" style="overflow-y: auto; text-align: center;">
-                <label id="lblScore1" style="font-weight: 400; font-size: 18px;">
-                </label>
-            </div>
-            <div class="col-sm-6 result-height" style="overflow-y: auto; text-align: center;">
-                <label id="lblScore2" style="font-weight: 400; font-size: 18px;">
-                </label>
-            </div>
-        </div>
+    </div>
     `;
 
     document.getElementById("divScore").innerHTML = el;
-    updateProfileMulti(0, state);
-    updateProfileMulti(1, state);
+}
+
+function updateProfileForMultiMode(state) {
+    state = JSON.parse(state);
+    for(let i = 0; i < state.players.length; i++) {
+        let profileImage = avatars[state.players[i].playerImageIdx];
+        document.getElementById("imgProfile" + (i+1)).src = "./img/" + profileImage;
+        document.getElementById("lblName" + (i+1)).innerHTML = state.players[i].playerName;
+    }
+}
+
+// Information to show after the game is over.
+// Show gameover label
+function showGameoverLabel() {
+	document.getElementById("divGameover").innerHTML = '<label style="font-weight: 700; font-size: 36px; line-height: 72px;">Game Over</label>';
+}
+
+function showPercentLabel(gameCount, numCorrectAnswer) {
+	document.getElementById("divPercent").innerHTML = '<label style="font-weight: 700; font-size: 48px; line-height: 72px;">' 
+		+ Math.round((numCorrectAnswer/gameCount) * 100) + '% Correct</label>';
+}
+
+function showCorrectLabel(numCorrectAnswer) {
+    document.getElementById("divCorrect").innerHTML = '<label style="font-weight: 700; font-size: 36px; line-height: 72px;">' 
+		+ numCorrectAnswer + ' Correct</label>';
+}
+
+// Show game summary. No of correct answer, incorrect answer etc. etc.
+function showSummaryLabel(gameCount, numCorrectAnswer, numIncorrectAnswer) {
+	document.getElementById("divSummary").innerHTML = '<label style="font-weight: 700; font-size: 18px;">Summary</label><br/>'  
+			+ '<label style="font-weight:400; font-size:18px;">Total questions: ' + gameCount + '<br/>' 
+			+ 'Correct: ' + numCorrectAnswer + '<br/>' 
+			+ 'Incorrect: ' + numIncorrectAnswer + '</label><br/>';
 }
 
 function showWinnerLabel(winner) {
@@ -325,5 +324,30 @@ function showWinnerLabel(winner) {
 
 	document.getElementById("divWinner").innerHTML = `<label style="font-weight: 700; font-size: 36px; line-height: 72px;">${content}</label>`;
 }
+
+// Show restart button. It refreshes the page.
+function showRestartBtn() {
+	document.getElementById("divRestart").innerHTML = `<input type="button" 
+																							class="btn btn-success" 
+																							id="btnRestart" 
+																							value="Restart" 
+																							onclick="location.reload()"
+																							style="font-weight: 700; font-size: 36px; line-height: 60px; border-radius: 0"/>`;
+}
+
+function showBackBtn() {
+	document.getElementById("divBack").innerHTML = `<input type="button"
+																							class="btn btn-success" 
+																							id="btnBack" 
+																							value="<" 
+																							style="font-weight: 700; font-size: 36px; line-height: 60px; border-radius: 0;"/>`;
+	const elBack = document.getElementById("btnBack");
+	elBack.addEventListener("click", onBackClick);
+}
+
+function onBackClick() {
+	location.href = "name.html"
+}
+//
 
 initPage();

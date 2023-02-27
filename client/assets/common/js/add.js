@@ -106,43 +106,11 @@ function updateTimerLabel() {
 	+ timer + '</label>';
 }
 
-// Information to show after the game is over.
-// Show gameover label
-function showGameoverLabel() {
-	document.getElementById("divGameover").innerHTML = '<label style="font-weight: 700; font-size: 36px; line-height: 72px;">Game Over</label>';
-}
 
 
 
-// Show restart button. It refreshes the page.
-function showRestartBtn() {
-	document.getElementById("divRestart").innerHTML = `<input type="button" 
-																							class="btn btn-success" 
-																							id="btnRestart" 
-																							value="Restart" 
-																							onclick="location.reload()"
-																							style="font-weight: 700; font-size: 36px; line-height: 60px; border-radius: 0"/>`;
-}
 
-function showBackBtn() {
-	document.getElementById("divBack").innerHTML = `<input type="button"
-																							class="btn btn-success" 
-																							id="btnBack" 
-																							value="<" 
-																							style="font-weight: 700; font-size: 36px; line-height: 60px; border-radius: 0;"/>`;
-	const elBack = document.getElementById("btnBack");
-	elBack.addEventListener("click", onBackClick);
-}
 
-function onBackClick() {
-	location.href = "name.html"
-}
-// // Show game summary. No of correct answer, incorrect answer etc. etc.
-// function showSummaryLabel() {
-// 	document.getElementById("divSummary").innerHTML = '<label style="font-weight: 700; font-size: 18px;">Summary</label><br/>'  
-// 			+ '<label style="font-weight:400; font-size:18px;">Total questions: ' + gameCount + '<br/>' 
-// 			+ 'Correct: ' + numCorrectAnswer + '<br/>' 
-// 			+ 'Incorrect: ' + numIncorrectAnswer + '</label><br/>';
-// }
+
 
 // init();
